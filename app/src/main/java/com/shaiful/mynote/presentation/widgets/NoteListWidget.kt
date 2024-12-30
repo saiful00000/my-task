@@ -69,7 +69,7 @@ fun NoteCategoryListWidget(innerPadding: PaddingValues) {
 
     val expandedState = remember { mutableStateListOf(*Array(categoryList.size) { false }) }
 
-    LazyColumn(modifier = Modifier.padding(innerPadding)) {
+    LazyColumn(modifier = Modifier.padding(innerPadding).padding(bottom = 75.dp)) {
         itemsIndexed(categoryList) { index, category ->
 
             var isExpanded by remember { mutableStateOf(expandedState[index]) }
@@ -104,9 +104,6 @@ fun NoteCategoryListWidget(innerPadding: PaddingValues) {
                 }
                 if (isExpanded) {
                     NoteListWidget(itemsList = category.itemList)
-                }
-                if (index == (categoryList.size - 1)) {
-                    Box(modifier = Modifier.height(75.dp))
                 }
             }
         }
