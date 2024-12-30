@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.MoreHoriz
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -35,7 +36,7 @@ fun NoteOptionMenuButton(
     Box() {
         IconButton(onClick = { menuExpanded = !menuExpanded }) {
             Icon(
-                imageVector = Icons.Default.MoreVert,
+                imageVector = Icons.Default.MoreHoriz,
                 contentDescription = "Note Menu",
                 Modifier.size(18.dp),
                 tint = Color.Gray

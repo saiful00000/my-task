@@ -55,8 +55,8 @@ fun NoteCategoryListWidget(innerPadding: PaddingValues) {
         AddNoteItem(
             title = "Lorem ipsum dolor sit amet,",
             priority = if (it < 6) "Low" else (if (it < 11) "Medium" else "High"),
-            description = "",
-//            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+//            description = "",
+            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
         )
     }
 
@@ -75,7 +75,7 @@ fun NoteCategoryListWidget(innerPadding: PaddingValues) {
             var isExpanded by remember { mutableStateOf(expandedState[index]) }
 
             Column(
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 8.dp)
             ) {
                 Box(
                     modifier = Modifier
@@ -89,7 +89,7 @@ fun NoteCategoryListWidget(innerPadding: PaddingValues) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        Text(text = category.title)
+                        Text(text = category.title, style = TextStyle(fontWeight = FontWeight(700)))
                         Icon(
                             imageVector = if (!isExpanded) Icons.Default.KeyboardArrowDown else Icons.Default.KeyboardArrowUp,
                             contentDescription = "Expand",
@@ -105,6 +105,9 @@ fun NoteCategoryListWidget(innerPadding: PaddingValues) {
                 if (isExpanded) {
                     NoteListWidget(itemsList = category.itemList)
                 }
+                if (index == (categoryList.size - 1)) {
+                    Box(modifier = Modifier.height(75.dp))
+                }
             }
         }
     }
@@ -114,16 +117,14 @@ fun NoteCategoryListWidget(innerPadding: PaddingValues) {
 fun NoteListWidget(itemsList: List<AddNoteItem>) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(8.dp)
+            .padding(start = 8.dp, end = 8.dp)
             .animateContentSize(
                 animationSpec = tween(durationMillis = 500)
             )
     ) {
         itemsList.forEach { item ->
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Column {
                     Row(
@@ -152,7 +153,7 @@ fun NoteListWidget(itemsList: List<AddNoteItem>) {
 
                         NoteOptionMenuButton(onDone = { /*TODO*/ }, onDelete = {})
                     }
-                    Text(text = item.title, style = TextStyle(fontWeight = FontWeight(700)))
+                    Text(text = item.title, style = TextStyle(fontWeight = FontWeight(500)))
                     Box(modifier = Modifier.height(4.dp))
                     Text(
                         text = item.description,

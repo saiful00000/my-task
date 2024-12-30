@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
 
-            var isSystemDarkTheme = isSystemInDarkTheme();
+            val isSystemDarkTheme = isSystemInDarkTheme()
             var isDarkTheme by remember { mutableStateOf(isSystemDarkTheme) }
 
             MyNoteTheme (
