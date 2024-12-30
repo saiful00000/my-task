@@ -2,6 +2,7 @@ package com.shaiful.mynote.presentation.widgets
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
@@ -33,7 +34,12 @@ fun NoteOptionMenuButton(
 
     Box() {
         IconButton(onClick = { menuExpanded = !menuExpanded }) {
-            Icon(imageVector = Icons.Default.MoreVert, contentDescription = "Note Menu")
+            Icon(
+                imageVector = Icons.Default.MoreVert,
+                contentDescription = "Note Menu",
+                Modifier.size(18.dp),
+                tint = Color.Gray
+            )
         }
 
         DropdownMenu(expanded = menuExpanded, onDismissRequest = { menuExpanded = false }) {
