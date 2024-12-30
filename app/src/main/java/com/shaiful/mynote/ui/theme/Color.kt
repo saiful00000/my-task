@@ -16,3 +16,5 @@ val PriorityHigh = Color(0xFFD81305)
 fun getPriorityColor(priority: String): Color {
     return if (priority == "Low") PriorityLow else (if (priority == "Medium") PriorityMedium else PriorityHigh)
 }
+
+val LightGray = Color(0xFFD6CCCC)

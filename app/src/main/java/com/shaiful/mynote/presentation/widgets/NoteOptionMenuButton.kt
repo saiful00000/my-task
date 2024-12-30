@@ -34,7 +34,10 @@ fun NoteOptionMenuButton(
     }
 
     Box() {
-        IconButton(onClick = { menuExpanded = !menuExpanded }) {
+        IconButton(
+            onClick = { menuExpanded = !menuExpanded },
+            modifier = Modifier.size(32.dp)
+        ) {
             Icon(
                 imageVector = Icons.Default.MoreHoriz,
                 contentDescription = "Note Menu",
