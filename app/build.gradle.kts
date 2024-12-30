@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -49,6 +51,10 @@ android {
     }
 }
 
+ksp {
+    allowSourcesFromOtherPlugins = true
+}
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -72,5 +78,14 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
 
+
+    // Room Database
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx) // Kotlin Extensions for Room
+    ksp(libs.androidx.room.compiler)      // Use KSP for Room annotation processing
+
+    // Hilt Dependency Injection
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
 
 }
