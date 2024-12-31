@@ -37,13 +37,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shaiful.mynote.domain.entities.AddNoteItem
 import com.shaiful.mynote.domain.entities.NoteCategory
-import com.shaiful.mynote.ui.theme.LightGray
+import com.shaiful.mynote.ui.theme.OnDarkBorder
+import com.shaiful.mynote.ui.theme.OnLightBorder
 import com.shaiful.mynote.ui.theme.Pink80
 import com.shaiful.mynote.ui.theme.PurpleGrey80
 import com.shaiful.mynote.ui.theme.getPriorityColor
 
 @Composable
-fun NoteCategoryListWidget(innerPadding: PaddingValues) {
+fun NoteCategoryListWidget(innerPadding: PaddingValues, isDarkTheme: Boolean) {
 
     val itemsList = List(5) {
         AddNoteItem(
@@ -107,7 +108,7 @@ fun NoteCategoryListWidget(innerPadding: PaddingValues) {
                     }
                 }
                 if (isExpanded) {
-                    NoteListWidget(itemsList = category.itemList)
+                    NoteListWidget(itemsList = category.itemList, isDarkTheme = isDarkTheme)
                 }
                 Box(modifier = Modifier.height(18.dp))
             }
@@ -116,7 +117,7 @@ fun NoteCategoryListWidget(innerPadding: PaddingValues) {
 }
 
 @Composable
-fun NoteListWidget(itemsList: List<AddNoteItem>) {
+fun NoteListWidget(itemsList: List<AddNoteItem>, isDarkTheme: Boolean) {
     Column(
         modifier = Modifier
             .padding(start = 16.dp, end = 8.dp)
@@ -163,7 +164,7 @@ fun NoteListWidget(itemsList: List<AddNoteItem>) {
                         )
                     }
                     Box(modifier = Modifier.height(8.dp))
-                    HorizontalDivider(color = LightGray)
+                    HorizontalDivider(color = if (isDarkTheme) OnDarkBorder else OnLightBorder)
                 }
             }
         }

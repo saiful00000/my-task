@@ -103,6 +103,6 @@ fun HomeScreen(navController: NavController, onThemeChange: (Boolean) -> Unit, i
             )
         }
 
-        NoteCategoryListWidget(innerPadding = innerPadding)
+        NoteCategoryListWidget(innerPadding = innerPadding, isDarkTheme = isDarkTheme)
     }
 }
