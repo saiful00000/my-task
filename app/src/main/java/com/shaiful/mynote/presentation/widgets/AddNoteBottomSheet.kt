@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.shaiful.mynote.domain.entities.AddNoteItem
+import com.shaiful.mynote.presentation.utility_widgets.VerticalSpace
 import com.shaiful.mynote.ui.theme.getPriorityColor
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -90,10 +91,12 @@ fun AddNoteBottomSheet(
                 modifier = Modifier.fillMaxWidth(),
                 maxLines = 3,
             )
-            Box(modifier = Modifier.height(16.dp))
+            VerticalSpace(height = 16)
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 Button(
-                    modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
                     onClick = {
                         val note =
                             AddNoteItem(
@@ -107,7 +110,7 @@ fun AddNoteBottomSheet(
                     Text(text = "Save")
                 }
             }
-            Box(modifier = Modifier.height(16.dp))
+            VerticalSpace(height = 16)
         }
     }
 }

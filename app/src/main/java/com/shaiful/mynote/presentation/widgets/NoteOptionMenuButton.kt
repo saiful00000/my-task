@@ -22,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.shaiful.mynote.presentation.utility_widgets.HorizontalSpace
 import com.shaiful.mynote.ui.theme.PriorityMedium
 
 @Composable
@@ -72,7 +73,7 @@ fun NoteOptionMenuButton(
                             contentDescription = "Delete",
                             tint = Color.Red,
                         )
-                        Box(modifier = Modifier.width(4.dp))
+                        HorizontalSpace(width = 4)
                         Text(text = "Delete")
                     }
                 },
