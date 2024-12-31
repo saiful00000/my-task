@@ -1,5 +1,12 @@
 package com.shaiful.mynote.presentation.widgets
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.SizeTransform
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.LightMode
@@ -17,10 +24,23 @@ fun ThemeToggleButton(initialThemeIsDark: Boolean, onThemeChange: (Boolean) -> U
         isDarkTheme.value = !isDarkTheme.value
         onThemeChange(isDarkTheme.value)
     }) {
-        Icon(
-            imageVector = if (isDarkTheme.value) Icons.Filled.LightMode else Icons.Filled.DarkMode,
-            contentDescription = if (isDarkTheme.value) "Dark Mode" else "Light Mode",
-            tint = if (isDarkTheme.value) Color.White else Color.Black
-        )
+        AnimatedContent(
+            targetState = isDarkTheme.value,
+            transitionSpec = {
+                if (targetState) {
+                    slideInHorizontally { width -> width } + fadeIn() togetherWith
+                            slideOutHorizontally {width -> -width } + fadeOut()
+                } else {
+                    slideInHorizontally { width -> -width } + fadeIn() togetherWith
+                            slideOutHorizontally { width -> width } + fadeOut()
+                }.using(SizeTransform(clip = false))
+            }, label = "theme_icon_animation"
+        ) { targetIsDark ->
+            Icon(
+                imageVector = if (targetIsDark) Icons.Filled.LightMode else Icons.Filled.DarkMode,
+                contentDescription = if (targetIsDark) "Dark Mode" else "Light Mode",
+                tint = if (targetIsDark) Color.White else Color.Black
+            )
+        }
     }
 }
