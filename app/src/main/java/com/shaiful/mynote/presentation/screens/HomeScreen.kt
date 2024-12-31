@@ -38,7 +38,7 @@ import com.shaiful.mynote.presentation.widgets.UsernameInputDialog
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavController, onThemeChange: (Boolean) -> Unit) {
+fun HomeScreen(navController: NavController, onThemeChange: (Boolean) -> Unit, isDarkTheme: Boolean) {
     val userViewModel: UserViewModel = UserViewModel(context = LocalContext.current)
 
     /// user name input related fields
@@ -65,7 +65,7 @@ fun HomeScreen(navController: NavController, onThemeChange: (Boolean) -> Unit) {
                 title = { Text(text = "Hi, ${userName ?: "There"}") },
                 actions = {
                     ThemeToggleButton(
-                        initialThemeIsDark = isSystemInDarkTheme(),
+                        initialThemeIsDark = isDarkTheme,
                         onThemeChange = onThemeChange
                     )
                 },

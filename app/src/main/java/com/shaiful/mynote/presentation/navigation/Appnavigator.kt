@@ -7,12 +7,12 @@ import androidx.navigation.compose.rememberNavController
 import com.shaiful.mynote.presentation.screens.HomeScreen
 
 @Composable
-fun AppNavigator(onThemeChange: (Boolean) -> Unit) {
+fun AppNavigator(onThemeChange: (Boolean) -> Unit, isDarkTheme: Boolean) {
     val navHostController = rememberNavController()
 
     NavHost(navController = navHostController, startDestination = RouteNames.homeScreen) {
         composable(RouteNames.homeScreen) {
-            HomeScreen(navController = navHostController, onThemeChange = onThemeChange)
+            HomeScreen(navController = navHostController, onThemeChange = onThemeChange, isDarkTheme = isDarkTheme)
         }
     }
 }
