@@ -46,7 +46,7 @@ import com.shaiful.mynote.ui.theme.PriorityMedium
 @Composable
 fun NoteCategoryListWidget(innerPadding: PaddingValues, isDarkTheme: Boolean) {
 
-    val itemsList = List(25) {
+    val itemsList = List(5) {
         AddNoteItem(
             title = "Lorem ipsum dolor sit amet,",
             priority = if (it < 6) "Low" else (if (it < 11) "Medium" else "High"),
@@ -55,9 +55,9 @@ fun NoteCategoryListWidget(innerPadding: PaddingValues, isDarkTheme: Boolean) {
         )
     }
 
-    val categoryList = List(50) {
+    val categoryList = List(5) {
         NoteCategory(
-            title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
+            title = "Lorem ipsum dolor",
             itemList = itemsList,
         )
     }
@@ -88,14 +88,14 @@ fun NoteCategoryListWidget(innerPadding: PaddingValues, isDarkTheme: Boolean) {
 
                 Box(
                     modifier = Modifier
-                        .padding(start = 8.dp)
+                        .padding(start = 8.dp,)
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(5.dp))
                         .clickable {
                             isExpanded = !isExpanded
                             expandedState[index] = isExpanded
                         }
-                        .padding(8.dp),
+                        .padding(top = 8.dp, bottom = 8.dp, start = 8.dp),
                 ) {
                     Row(
                         modifier = Modifier
@@ -118,10 +118,12 @@ fun NoteCategoryListWidget(innerPadding: PaddingValues, isDarkTheme: Boolean) {
                     CategoryOptionTile()
                 }
 
-                if (isExpanded) {
-                    NoteListWidget(itemsList = category.itemList, isDarkTheme = isDarkTheme)
+                Column {
+                    VerticalSpace(height = 24)
+                    if (isExpanded) {
+                        NoteListWidget(itemsList = category.itemList, isDarkTheme = isDarkTheme)
+                    }
                 }
-//                VerticalSpace(height = 32)
             }
         }
     }
