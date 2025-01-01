@@ -19,3 +19,6 @@ fun getPriorityColor(priority: String): Color {
 
 val OnLightBorder = Color(0xFFD6CCCC)
 val OnDarkBorder = Color(0xFF2C2A2A)
+
+
+val Orange = Color(0xFFFF8C00)
