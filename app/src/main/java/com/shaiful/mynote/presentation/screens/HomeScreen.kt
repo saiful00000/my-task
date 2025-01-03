@@ -1,18 +1,13 @@
 package com.shaiful.mynote.presentation.screens
 
-import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.DarkMode
-import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -26,29 +21,35 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.shaiful.mynote.presentation.viewmodels.NoteViewmodel
 import com.shaiful.mynote.presentation.widgets.AddNoteBottomSheet
+import com.shaiful.mynote.presentation.widgets.CategoryCreationDialog
 import com.shaiful.mynote.presentation.widgets.NoteCategoryListWidget
-import com.shaiful.mynote.presentation.widgets.NoteListWidget
 import com.shaiful.mynote.presentation.widgets.ThemeToggleButton
 import com.shaiful.mynote.presentation.widgets.UsernameInputDialog
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavController, onThemeChange: (Boolean) -> Unit, isDarkTheme: Boolean) {
+fun HomeScreen(
+    navController: NavController,
+    onThemeChange: (Boolean) -> Unit,
+    isDarkTheme: Boolean,
+    noteViewModel: NoteViewmodel = hiltViewModel()
+) {
     val userViewModel: UserViewModel = UserViewModel(context = LocalContext.current)
 
     /// user name input related fields
     val userName by userViewModel.userName.collectAsState()
-    val showDialog by remember {
+    val showUsernameDialog by remember {
         derivedStateOf { userName == null }
     }
 
     /// note group related fields
-    var showGroupCreationDialog by remember {
+    var showCategoryCreationDialog by remember {
         mutableStateOf(false)
     }
 
@@ -72,7 +73,7 @@ fun HomeScreen(navController: NavController, onThemeChange: (Boolean) -> Unit, i
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { showSheet = true }) {
+            FloatingActionButton(onClick = { showCategoryCreationDialog = true }) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Add",
@@ -82,10 +83,22 @@ fun HomeScreen(navController: NavController, onThemeChange: (Boolean) -> Unit, i
         }
     ) { innerPadding ->
 
-        if (showDialog) {
+        if (showUsernameDialog) {
             UsernameInputDialog(
                 onSave = { name ->
                     userViewModel.setUserName(name)
+                }
+            )
+        }
+
+        if (showCategoryCreationDialog) {
+            CategoryCreationDialog(
+                onSave = { categoryName ->
+                    noteViewModel.addCategory(categoryName)
+                    showCategoryCreationDialog = false
+                },
+                onDismiss = {
+                    showCategoryCreationDialog = false
                 }
             )
         }
@@ -103,6 +116,10 @@ fun HomeScreen(navController: NavController, onThemeChange: (Boolean) -> Unit, i
             )
         }
 
-        NoteCategoryListWidget(innerPadding = innerPadding, isDarkTheme = isDarkTheme)
+        NoteCategoryListWidget(
+            innerPadding = innerPadding,
+            isDarkTheme = isDarkTheme,
+            noteViewModel = noteViewModel
+        )
     }
 }
