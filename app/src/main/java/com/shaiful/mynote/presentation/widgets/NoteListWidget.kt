@@ -1,5 +1,6 @@
 package com.shaiful.mynote.presentation.widgets
 
+import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,6 +14,8 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
@@ -20,19 +23,28 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.shaiful.mynote.data.tables.Category
+import com.shaiful.mynote.data.tables.Note
 import com.shaiful.mynote.domain.entities.AddNoteItem
 import com.shaiful.mynote.presentation.utility_widgets.VerticalSpace
+import com.shaiful.mynote.presentation.viewmodels.NoteViewmodel
 import com.shaiful.mynote.ui.theme.OnDarkBorder
 import com.shaiful.mynote.ui.theme.OnLightBorder
 import com.shaiful.mynote.ui.theme.getPriorityColor
 
 @Composable
-fun NoteListWidget(itemsList: List<AddNoteItem>, isDarkTheme: Boolean) {
+fun NoteListWidget(isDarkTheme: Boolean, noteViewmodel: NoteViewmodel, category: Category) {
+
+    val itemsList by noteViewmodel.getNotesByCategory(category.id).collectAsState()
+
     Column(
         modifier = Modifier
             .padding(start = 16.dp, end = 8.dp)
     ) {
         itemsList.forEachIndexed { index, item ->
+
+            Log.i("Recomposing", "Note item recomposing id -> ${item.id}")
+
             Box(
                 modifier = Modifier.fillMaxWidth()
             ) {

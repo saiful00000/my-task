@@ -53,12 +53,6 @@ fun HomeScreen(
         mutableStateOf(false)
     }
 
-    /// note creation related fields
-    val sheetState = rememberModalBottomSheetState()
-    var showSheet by remember {
-        mutableStateOf(false)
-    }
-
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -99,19 +93,6 @@ fun HomeScreen(
                 },
                 onDismiss = {
                     showCategoryCreationDialog = false
-                }
-            )
-        }
-
-        if (showSheet) {
-            AddNoteBottomSheet(
-                sheetTitle = "Group Name",
-                onSave = { noteItem ->
-                    println("Note item = $noteItem")
-                    showSheet = false
-                },
-                onDismiss = {
-                    showSheet = false
                 }
             )
         }

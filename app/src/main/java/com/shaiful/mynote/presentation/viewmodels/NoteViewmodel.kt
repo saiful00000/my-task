@@ -36,7 +36,7 @@ class NoteViewmodel @Inject constructor(
         categoryRepository.delete(category)
     }
 
-    fun getNotesByCategory(categoryId: Int): StateFlow<List<Note>> = noteRepository.getNotesByCategory(categoryId).stateIn(
+    fun getNotesByCategory(categoryId: Int) = noteRepository.getNotesByCategory(categoryId).stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
         emptyList(),

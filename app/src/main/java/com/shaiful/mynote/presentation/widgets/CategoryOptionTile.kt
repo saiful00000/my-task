@@ -19,7 +19,7 @@ import com.shaiful.mynote.ui.theme.Orange
 import com.shaiful.mynote.ui.theme.PriorityMedium
 
 @Composable
-fun CategoryOptionTile() {
+fun CategoryOptionTile(onAdd: () -> Unit = {}, onDelete: () -> Unit, onFavorite: () -> Unit) {
     var isVisible by remember { mutableStateOf(false) }
 
     // Toggle visibility on some user action, or trigger automatically
@@ -43,7 +43,7 @@ fun CategoryOptionTile() {
                     animationSpec = tween(durationMillis = 700) // Slower exit
                 )
             ) {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = onDelete) {
                     Icon(
                         imageVector = Icons.Outlined.Delete,
                         contentDescription = "Delete Category",
@@ -63,7 +63,7 @@ fun CategoryOptionTile() {
                     animationSpec = tween(durationMillis = 700)
                 )
             ) {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = onFavorite) {
                     Icon(
                         imageVector = Icons.Outlined.FavoriteBorder,
                         contentDescription = "Favorite Category",
@@ -83,7 +83,7 @@ fun CategoryOptionTile() {
                     animationSpec = tween(durationMillis = 700)
                 )
             ) {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = onAdd) {
                     Icon(
                         imageVector = Icons.Outlined.Add,
                         contentDescription = "Add Category",
