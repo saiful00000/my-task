@@ -36,11 +36,19 @@ class NoteViewmodel @Inject constructor(
         categoryRepository.delete(category)
     }
 
-    fun getNotesByCategory(categoryId: Int) = noteRepository.getNotesByCategory(categoryId).stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5000),
-        emptyList(),
-    )
+    // Cache for notes by category
+    private val notesByCategoryCache = mutableMapOf<Int, StateFlow<List<Note>>>()
+
+    // Fetch notes for a category, ensuring caching
+    fun getNotesByCategory(categoryId: Int): StateFlow<List<Note>> {
+        return notesByCategoryCache.getOrPut(categoryId) {
+            noteRepository.getNotesByCategory(categoryId).stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(5000),
+                emptyList()
+            )
+        }
+    }
 
     fun addNote(note: Note) = viewModelScope.launch {
         noteRepository.insert(note)
