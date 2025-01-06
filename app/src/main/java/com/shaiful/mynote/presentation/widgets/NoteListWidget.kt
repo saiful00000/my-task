@@ -73,7 +73,9 @@ fun NoteListWidget(isDarkTheme: Boolean, noteViewmodel: NoteViewmodel, category:
                             )
                         }
 
-                        NoteOptionMenuButton(onDone = { /*TODO*/ }, onDelete = {})
+                        NoteOptionMenuButton(onDone = { /*TODO*/ }, onDelete = {
+                            noteViewmodel.deleteNote(item)
+                        })
                     }
                     VerticalSpace(height = 4)
                     Text(text = item.title, style = TextStyle(fontWeight = FontWeight(500)))
