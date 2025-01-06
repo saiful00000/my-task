@@ -32,7 +32,7 @@ class NoteViewmodel @Inject constructor(
         categoryRepository.insert(category)
     }
 
-    fun deleteNote(category: Category) = viewModelScope.launch {
+    fun deleteCategory(category: Category) = viewModelScope.launch {
         categoryRepository.delete(category)
     }
 

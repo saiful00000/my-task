@@ -142,7 +142,9 @@ fun NoteCategoryListWidget(
 
                     if (isExpanded) {
                         CategoryOptionTile(
-                            onDelete = {},
+                            onDelete = {
+                                noteViewModel.deleteCategory(category)
+                            },
                             onFavorite = {},
                             onAdd = {
                                 showSheet = true
