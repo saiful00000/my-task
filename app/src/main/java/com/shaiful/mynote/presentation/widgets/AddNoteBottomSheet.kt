@@ -42,7 +42,7 @@ fun AddNoteBottomSheet(
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
-        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+        sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
     ) {
         Column(
             modifier = Modifier
@@ -51,19 +51,28 @@ fun AddNoteBottomSheet(
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                Text(text = sheetTitle)
+                Text(text = "Add Note for $sheetTitle")
             }
-
-            Text(text = "Create Note")
 
             OutlinedTextField(
                 value = title,
                 onValueChange = { title = it },
                 label = { Text(text = "Title") },
+                modifier = Modifier.fillMaxWidth(),
                 maxLines = 1,
             )
 
-            Text(text = "Priority", style = MaterialTheme.typography.bodyMedium)
+            OutlinedTextField(
+                value = description,
+                onValueChange = { description = it },
+                label = { Text(text = "Description") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp),
+                maxLines = 3,
+            )
+            VerticalSpace(height = 12)
+            Text(text = "Priority")
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
@@ -83,14 +92,6 @@ fun AddNoteBottomSheet(
                     }
                 }
             }
-
-            OutlinedTextField(
-                value = description,
-                onValueChange = { description = it },
-                label = { Text(text = "Description") },
-                modifier = Modifier.fillMaxWidth(),
-                maxLines = 3,
-            )
             VerticalSpace(height = 16)
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 Button(

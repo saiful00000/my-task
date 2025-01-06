@@ -75,6 +75,7 @@ fun NoteListWidget(isDarkTheme: Boolean, noteViewmodel: NoteViewmodel, category:
 
                         NoteOptionMenuButton(onDone = { /*TODO*/ }, onDelete = {})
                     }
+                    VerticalSpace(height = 4)
                     Text(text = item.title, style = TextStyle(fontWeight = FontWeight(500)))
                     VerticalSpace(height = 4)
                     if (item.description.isNotBlank()) {

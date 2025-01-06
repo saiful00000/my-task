@@ -76,7 +76,7 @@ fun NoteCategoryListWidget(
 
                 if (showSheet) {
                     AddNoteBottomSheet(
-                        sheetTitle = "Group Name",
+                        sheetTitle = category.name,
                         onSave = { noteItem ->
                             println("Note item = $noteItem")
                             noteViewModel.addNote(
@@ -151,12 +151,11 @@ fun NoteCategoryListWidget(
                             },
                         )
                     }
-
-                    Column {
+                    if (!isExpanded) {
                         VerticalSpace(height = 24)
-                        if (isExpanded) {
-                            NoteListWidget(isDarkTheme = isDarkTheme, noteViewmodel = noteViewModel, category = category)
-                        }
+                    }
+                    if (isExpanded) {
+                        NoteListWidget(isDarkTheme = isDarkTheme, noteViewmodel = noteViewModel, category = category)
                     }
                 }
             }
