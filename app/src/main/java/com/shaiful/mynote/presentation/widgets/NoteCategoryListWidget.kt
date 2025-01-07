@@ -39,6 +39,7 @@ import com.shaiful.mynote.domain.entities.AddNoteItem
 import com.shaiful.mynote.domain.entities.NoteCategory
 import com.shaiful.mynote.presentation.utility_widgets.VerticalSpace
 import com.shaiful.mynote.presentation.viewmodels.NoteViewmodel
+import java.time.LocalDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -85,6 +86,8 @@ fun NoteCategoryListWidget(
                                     description = noteItem.description,
                                     categoryId = category.id,
                                     priority = noteItem.priority,
+                                    isDone = false,
+                                    createdAt = LocalDateTime.now().toString(),
                                 )
                             )
                             showSheet = false

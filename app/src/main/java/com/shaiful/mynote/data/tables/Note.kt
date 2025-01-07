@@ -21,4 +21,6 @@ data class Note(
     val description: String,
     val priority: String,
     val categoryId: Int,
+    val createdAt: String? = "",
+    val isDone: Boolean? = false,
 )

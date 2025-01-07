@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.shaiful.mynote.data.tables.Note
 import kotlinx.coroutines.flow.Flow
 
@@ -18,4 +19,7 @@ interface NoteDao {
 
     @Query("SELECT * FROM notes WHERE categoryId = :categoryId")
     fun getNotesByCategory(categoryId: Int): Flow<List<Note>>
+
+    @Update
+    suspend fun update(note: Note)
 }

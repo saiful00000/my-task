@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -73,17 +74,37 @@ fun NoteListWidget(isDarkTheme: Boolean, noteViewmodel: NoteViewmodel, category:
                             )
                         }
 
-                        NoteOptionMenuButton(onDone = { /*TODO*/ }, onDelete = {
+                        NoteOptionMenuButton(onDone = {
+                            val updatedItem = Note(
+                                id = item.id,
+                                title = item.title,
+                                description = item.description,
+                                priority = item.priority,
+                                categoryId = item.categoryId,
+                                createdAt = item.createdAt,
+                                isDone = true,
+                            )
+                            noteViewmodel.update(updatedItem)
+                        }, onDelete = {
                             noteViewmodel.deleteNote(item)
                         })
                     }
                     VerticalSpace(height = 4)
-                    Text(text = item.title, style = TextStyle(fontWeight = FontWeight(500)))
+                    Text(
+                        text = item.title,
+                        style = TextStyle(
+                            fontWeight = FontWeight(500),
+                            textDecoration = if (item.isDone == true) TextDecoration.LineThrough else TextDecoration.None
+                        ),
+                    )
                     VerticalSpace(height = 4)
                     if (item.description.isNotBlank()) {
                         Text(
                             text = item.description,
-                            style = TextStyle(color = MaterialTheme.colorScheme.onSurfaceVariant),
+                            style = TextStyle(
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                textDecoration = if (item.isDone == true) TextDecoration.LineThrough else TextDecoration.None,
+                            ),
                             maxLines = 3,
                             overflow = TextOverflow.Ellipsis,
                         )

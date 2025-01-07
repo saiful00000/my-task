@@ -17,4 +17,6 @@ class NoteRepositoryImp @Inject constructor(
 
     override fun getNotesByCategory(categoryId: Int): Flow<List<Note>> = noteDao.getNotesByCategory(categoryId)
 
+    override suspend fun update(note: Note) = noteDao.update(note)
+
 }

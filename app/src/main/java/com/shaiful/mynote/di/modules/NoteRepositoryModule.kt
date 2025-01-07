@@ -22,7 +22,9 @@ class NoteRepositoryModule {
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): NotesDatabase {
-        return Room.databaseBuilder(context, NotesDatabase::class.java, "note_database")
+        return Room
+            .databaseBuilder(context, NotesDatabase::class.java, "note_database")
+            .addMigrations()
             .build()
     }
 

@@ -58,4 +58,8 @@ class NoteViewmodel @Inject constructor(
         noteRepository.delete(note)
     }
 
+    fun update(note: Note) = viewModelScope.launch {
+        noteRepository.update(note)
+    }
+
 }
