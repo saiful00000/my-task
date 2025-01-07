@@ -114,10 +114,10 @@ fun AddNoteBottomSheet(
                                 warningMessage = "Title cannot be empty"
                                 showWarningDialog = true
                             }
-                            description.isBlank() -> {
-                                warningMessage = "Description cannot be empty"
-                                showWarningDialog = true
-                            }
+//                            description.isBlank() -> {
+//                                warningMessage = "Description cannot be empty"
+//                                showWarningDialog = true
+//                            }
                             else -> {
                                 val note =
                                     AddNoteItem(
