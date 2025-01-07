@@ -40,6 +40,16 @@ fun AddNoteBottomSheet(
     var description by remember { mutableStateOf("") }
     var priority by remember { mutableStateOf("Low") }
 
+    var warningMessage by remember { mutableStateOf("") }
+    var showWarningDialog by remember { mutableStateOf(false) }
+
+    if (showWarningDialog) {
+        WarningDialog(message = warningMessage, onDismiss = {
+            showWarningDialog = false
+            warningMessage = ""
+        })
+    }
+
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
@@ -99,13 +109,25 @@ fun AddNoteBottomSheet(
                         .padding(16.dp)
                         .fillMaxWidth(),
                     onClick = {
-                        val note =
-                            AddNoteItem(
-                                title = title,
-                                description = description,
-                                priority = priority
-                            )
-                        onSave(note)
+                        when {
+                            title.isBlank() -> {
+                                warningMessage = "Title cannot be empty"
+                                showWarningDialog = true
+                            }
+                            description.isBlank() -> {
+                                warningMessage = "Description cannot be empty"
+                                showWarningDialog = true
+                            }
+                            else -> {
+                                val note =
+                                    AddNoteItem(
+                                        title = title,
+                                        description = description,
+                                        priority = priority
+                                    )
+                                onSave(note)
+                            }
+                        }
                     },
                 ) {
                     Text(text = "Save")
