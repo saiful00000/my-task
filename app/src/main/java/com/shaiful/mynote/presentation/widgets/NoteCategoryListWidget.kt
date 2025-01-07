@@ -145,6 +145,7 @@ fun NoteCategoryListWidget(
 
                     if (isExpanded) {
                         CategoryOptionTile(
+                            category = category,
                             onDelete = {
                                 noteViewModel.deleteCategory(category)
                             },

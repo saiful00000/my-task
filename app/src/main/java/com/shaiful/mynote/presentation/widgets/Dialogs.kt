@@ -32,3 +32,23 @@ fun  ErrorDialog(message: String, onDismiss: () -> Unit) {
         }
     )
 }
+
+
+@Composable
+fun  ConfirmationDialog(title: String, message: String, onDismiss: () -> Unit, onConfirm: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = {},
+        title = { Text(text = title) },
+        text = { Text(text = message) },
+        dismissButton = {
+            Button(onClick = onDismiss) {
+                Text(text = "No")
+            }
+        },
+        confirmButton = {
+            Button(onClick = onConfirm) {
+                Text(text = "Yes")
+            }
+        }
+    )
+}

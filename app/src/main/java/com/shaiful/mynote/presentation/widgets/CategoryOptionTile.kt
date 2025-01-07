@@ -15,16 +15,27 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.shaiful.mynote.data.tables.Category
+import com.shaiful.mynote.presentation.widgets.ConfirmationDialog
 import com.shaiful.mynote.ui.theme.Orange
 import com.shaiful.mynote.ui.theme.PriorityMedium
 
 @Composable
-fun CategoryOptionTile(onAdd: () -> Unit = {}, onDelete: () -> Unit, onFavorite: () -> Unit) {
+fun CategoryOptionTile(
+    category: Category,
+    onAdd: () -> Unit = {},
+    onDelete: () -> Unit,
+    onFavorite: () -> Unit
+) {
     var isVisible by remember { mutableStateOf(false) }
 
     // Toggle visibility on some user action, or trigger automatically
     LaunchedEffect(Unit) {
         isVisible = true // Set to true to animate icons appearing
+    }
+
+    var showConfirmationDialog by remember {
+        mutableStateOf(false)
     }
 
     Box {
@@ -43,7 +54,9 @@ fun CategoryOptionTile(onAdd: () -> Unit = {}, onDelete: () -> Unit, onFavorite:
                     animationSpec = tween(durationMillis = 700) // Slower exit
                 )
             ) {
-                IconButton(onClick = onDelete) {
+                IconButton(onClick = {
+                    showConfirmationDialog = true
+                }) {
                     Icon(
                         imageVector = Icons.Outlined.Delete,
                         contentDescription = "Delete Category",
@@ -92,5 +105,19 @@ fun CategoryOptionTile(onAdd: () -> Unit = {}, onDelete: () -> Unit, onFavorite:
                 }
             }
         }
+    }
+
+    if (showConfirmationDialog) {
+        ConfirmationDialog(
+            title = "Are you sure?",
+            message = "Category ${category.name} and all task in this category will be deleted.",
+            onDismiss = {
+                showConfirmationDialog = false
+            },
+            onConfirm = {
+                onDelete()
+                showConfirmationDialog = false
+            },
+        )
     }
 }
