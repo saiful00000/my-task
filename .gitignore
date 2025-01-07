@@ -14,3 +14,5 @@
 .cxx
 local.properties
 /schemas/*.json
+/app/schemas/com.shaiful.mynote.data.databases.NotesDatabase/1.json
+/app/schemas/com.shaiful.mynote.data.databases.NotesDatabase/2.json
