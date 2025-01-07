@@ -18,3 +18,17 @@ fun  WarningDialog(message: String, onDismiss: () -> Unit) {
         }
     )
 }
+
+@Composable
+fun  ErrorDialog(message: String, onDismiss: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(text = "Error") },
+        text = { Text(text = message) },
+        confirmButton = {
+            Button(onClick = onDismiss) {
+                Text(text = "Ok")
+            }
+        }
+    )
+}
