@@ -159,7 +159,11 @@ fun NoteCategoryListWidget(
                         VerticalSpace(height = 24)
                     }
                     if (isExpanded) {
-                        NoteListWidget(isDarkTheme = isDarkTheme, noteViewmodel = noteViewModel, category = category)
+                        NoteListWidget(
+                            isDarkTheme = isDarkTheme,
+                            noteViewmodel = noteViewModel,
+                            category = category,
+                        )
                     }
                 }
             }
