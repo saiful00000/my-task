@@ -123,8 +123,8 @@ fun AddNoteBottomSheet(
                             else -> {
                                 val note =
                                     AddNoteItem(
-                                        title = title,
-                                        description = description,
+                                        title = title.trim(),
+                                        description = description.trim(),
                                         priority = priority.id
                                     )
                                 onSave(note)

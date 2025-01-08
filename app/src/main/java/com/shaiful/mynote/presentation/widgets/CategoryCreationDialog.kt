@@ -36,7 +36,7 @@ fun CategoryCreationDialog(onSave: (String) -> Unit, onDismiss: () -> Unit) {
             }
         },
         confirmButton = {
-            Button(onClick = { if (textInput.isNotBlank()) onSave(textInput) }) {
+            Button(onClick = { if (textInput.isNotBlank()) onSave(textInput.trim()) }) {
                 Text(text = "Save")
             }
         },
