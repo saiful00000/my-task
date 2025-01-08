@@ -13,6 +13,7 @@ val Pink40 = Color(0xFF7D5260)
 val PriorityLow = Color(0xFF3F51B5)
 val PriorityMedium = Color(0xFF0B7510)
 val PriorityHigh = Color(0xFFD81305)
+
 fun getPriorityColor(priority: String): Color {
     return if (priority == "Low") PriorityLow else (if (priority == "Medium") PriorityMedium else PriorityHigh)
 }
