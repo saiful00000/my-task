@@ -32,6 +32,8 @@ import com.shaiful.mynote.presentation.viewmodels.NoteViewmodel
 import com.shaiful.mynote.ui.theme.OnDarkBorder
 import com.shaiful.mynote.ui.theme.OnLightBorder
 import com.shaiful.mynote.ui.theme.getPriorityColor
+import com.shaiful.mynote.ui.theme.getPriorityColorById
+import com.shaiful.mynote.utils.getPriorityById
 
 @Composable
 fun NoteListWidget(isDarkTheme: Boolean, noteViewmodel: NoteViewmodel, category: Category) {
@@ -58,16 +60,16 @@ fun NoteListWidget(isDarkTheme: Boolean, noteViewmodel: NoteViewmodel, category:
                         Box(
                             modifier = Modifier
                                 .border(
-                                    color = getPriorityColor(item.priority),
+                                    color = getPriorityColorById(item.priority),
                                     width = 1.dp,
                                     shape = RoundedCornerShape(2.dp)
                                 )
                                 .padding(horizontal = 4.dp, vertical = 1.dp)
                         ) {
                             Text(
-                                text = item.priority,
+                                text = getPriorityById(item.priority)?.slug ?: "",
                                 style = TextStyle(
-                                    color = getPriorityColor(item.priority),
+                                    color = getPriorityColorById(item.priority),
                                     fontSize = 10.sp,
                                     fontWeight = FontWeight(700)
                                 )

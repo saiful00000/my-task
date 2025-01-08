@@ -19,8 +19,8 @@ data class Note(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val title: String,
     val description: String,
-    val priority: String,
+    val priority: Int,
     val categoryId: Int,
-    val createdAt: String? = "",
-    val isDone: Boolean? = false,
+    val createdAt: String = "",
+    val isDone: Boolean = false,
 )

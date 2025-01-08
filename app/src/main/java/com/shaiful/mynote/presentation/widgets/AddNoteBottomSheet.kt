@@ -26,8 +26,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.shaiful.mynote.domain.entities.AddNoteItem
+import com.shaiful.mynote.presentation.models.IdSlug
 import com.shaiful.mynote.presentation.utility_widgets.VerticalSpace
 import com.shaiful.mynote.ui.theme.getPriorityColor
+import com.shaiful.mynote.utils.priorityList
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,7 +40,7 @@ fun AddNoteBottomSheet(
 ) {
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
-    var priority by remember { mutableStateOf("Low") }
+    var priority by remember { mutableStateOf(priorityList[0]) }
 
     var warningMessage by remember { mutableStateOf("") }
     var showWarningDialog by remember { mutableStateOf(false) }
@@ -87,16 +89,16 @@ fun AddNoteBottomSheet(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                listOf("Low", "Medium", "High").forEach { priorityOpt ->
+                priorityList.forEach { priorityOpt ->
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         RadioButton(
-                            selected = priority == priorityOpt,
+                            selected = priority.id == priorityOpt.id,
                             onClick = { priority = priorityOpt },
                         )
                         Text(
-                            text = priorityOpt,
+                            text = priorityOpt.slug,
                             style = TextStyle(
-                                color = getPriorityColor(priorityOpt),
+                                color = getPriorityColor(priorityOpt.slug),
                             )
                         )
                     }
@@ -123,7 +125,7 @@ fun AddNoteBottomSheet(
                                     AddNoteItem(
                                         title = title,
                                         description = description,
-                                        priority = priority
+                                        priority = priority.id
                                     )
                                 onSave(note)
                             }

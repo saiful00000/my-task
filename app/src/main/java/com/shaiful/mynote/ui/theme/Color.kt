@@ -16,6 +16,9 @@ val PriorityHigh = Color(0xFFD81305)
 fun getPriorityColor(priority: String): Color {
     return if (priority == "Low") PriorityLow else (if (priority == "Medium") PriorityMedium else PriorityHigh)
 }
+fun getPriorityColorById(priority: Int): Color {
+    return if (priority == 1) PriorityLow else (if (priority == 2) PriorityMedium else PriorityHigh)
+}
 
 val OnLightBorder = Color(0xFFD6CCCC)
 val OnDarkBorder = Color(0xFF2C2A2A)

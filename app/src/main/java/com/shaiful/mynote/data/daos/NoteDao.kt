@@ -17,7 +17,7 @@ interface NoteDao {
     @Delete
     suspend fun delete(note: Note)
 
-    @Query("SELECT * FROM notes WHERE categoryId = :categoryId")
+    @Query("SELECT * FROM notes WHERE categoryId = :categoryId ORDER BY priority DESC")
     fun getNotesByCategory(categoryId: Int): Flow<List<Note>>
 
     @Update
