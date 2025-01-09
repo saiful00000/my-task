@@ -4,10 +4,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -27,6 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.shaiful.mynote.presentation.viewmodels.NoteViewmodel
 import com.shaiful.mynote.presentation.widgets.AddNoteBottomSheet
 import com.shaiful.mynote.presentation.widgets.CategoryCreationDialog
+import com.shaiful.mynote.presentation.widgets.MenuBottomSheet
 import com.shaiful.mynote.presentation.widgets.NoteCategoryListWidget
 import com.shaiful.mynote.presentation.widgets.ThemeToggleButton
 import com.shaiful.mynote.presentation.widgets.UsernameInputDialog
@@ -53,10 +56,22 @@ fun HomeScreen(
         mutableStateOf(false)
     }
 
+    /// bottom sheet related fields
+    var showMenuBottomSheet by remember {
+        mutableStateOf(true)
+    }
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             CenterAlignedTopAppBar(
+                navigationIcon = {
+                    IconButton(onClick = {
+                        showMenuBottomSheet = true
+                    }) {
+                        Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu button")
+                    }
+                },
                 title = { Text(text = "Hi, ${userName ?: "There"}") },
                 actions = {
                     ThemeToggleButton(
@@ -93,6 +108,14 @@ fun HomeScreen(
                 },
                 onDismiss = {
                     showCategoryCreationDialog = false
+                }
+            )
+        }
+
+        if (showMenuBottomSheet) {
+            MenuBottomSheet (
+                onDismiss = {
+                    showMenuBottomSheet = false
                 }
             )
         }
