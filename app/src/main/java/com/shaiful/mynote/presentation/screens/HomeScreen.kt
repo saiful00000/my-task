@@ -116,7 +116,8 @@ fun HomeScreen(
             MenuBottomSheet (
                 onDismiss = {
                     showMenuBottomSheet = false
-                }
+                },
+                navController = navController
             )
         }
 
