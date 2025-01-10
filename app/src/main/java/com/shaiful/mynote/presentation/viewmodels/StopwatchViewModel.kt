@@ -54,8 +54,8 @@ class StopwatchViewModel @Inject constructor() : ViewModel() {
         val hours = totalSeconds / 3600
         val minutes = (totalSeconds % 3600) / 60
         val seconds = totalSeconds % 60
-        val milliseconds = timeInMillis % 1000
+//        val milliseconds = timeInMillis % 1000
 
-        return String.format("%02d:%02d:%02d:%03d", hours, minutes, seconds, milliseconds)
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds)
     }
 }

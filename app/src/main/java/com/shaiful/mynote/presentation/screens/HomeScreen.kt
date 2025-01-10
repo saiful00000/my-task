@@ -56,7 +56,7 @@ fun HomeScreen(
 
     /// bottom sheet related fields
     var showMenuBottomSheet by remember {
-        mutableStateOf(true)
+        mutableStateOf(false)
     }
 
     Scaffold(
