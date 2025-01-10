@@ -1,4 +1,4 @@
-package com.shaiful.mynote.presentation.widgets
+package com.shaiful.mynote.presentation.widgets.notes
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,26 +21,21 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun CategoryCreationDialog(onSave: (String) -> Unit, onDismiss: () -> Unit) {
+fun UsernameInputDialog(onSave: (String) -> Unit) {
     var textInput by remember {
         mutableStateOf("")
     }
 
     AlertDialog(
         onDismissRequest = {
-            onDismiss()
-        },
-        dismissButton = {
-            Button(onClick =  onDismiss) {
-                Text(text = "Cancel")
-            }
+
         },
         confirmButton = {
-            Button(onClick = { if (textInput.isNotBlank()) onSave(textInput.trim()) }) {
+            Button(onClick = { if (textInput.isNotBlank()) onSave(textInput) }) {
                 Text(text = "Save")
             }
         },
-        title = { Text(text = "Enter Category Name") },
+        title = { Text(text = "Enter Your Name") },
         text = {
             BasicTextField(
                 value = textInput,

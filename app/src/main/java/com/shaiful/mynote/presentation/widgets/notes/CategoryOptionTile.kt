@@ -1,3 +1,5 @@
+package com.shaiful.mynote.presentation.widgets.notes
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally

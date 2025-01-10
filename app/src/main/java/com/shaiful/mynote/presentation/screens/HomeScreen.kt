@@ -12,7 +12,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -27,12 +26,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shaiful.mynote.presentation.viewmodels.NoteViewmodel
-import com.shaiful.mynote.presentation.widgets.AddNoteBottomSheet
-import com.shaiful.mynote.presentation.widgets.CategoryCreationDialog
+import com.shaiful.mynote.presentation.widgets.notes.CategoryCreationDialog
 import com.shaiful.mynote.presentation.widgets.MenuBottomSheet
-import com.shaiful.mynote.presentation.widgets.NoteCategoryListWidget
+import com.shaiful.mynote.presentation.widgets.notes.NoteCategoryListWidget
 import com.shaiful.mynote.presentation.widgets.ThemeToggleButton
-import com.shaiful.mynote.presentation.widgets.UsernameInputDialog
+import com.shaiful.mynote.presentation.widgets.notes.UsernameInputDialog
 
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -1,4 +1,4 @@
-package com.shaiful.mynote.presentation.widgets
+package com.shaiful.mynote.presentation.widgets.notes
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
@@ -23,12 +22,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.shaiful.mynote.domain.entities.AddNoteItem
-import com.shaiful.mynote.presentation.models.IdSlug
 import com.shaiful.mynote.presentation.utility_widgets.VerticalSpace
+import com.shaiful.mynote.presentation.widgets.WarningDialog
 import com.shaiful.mynote.ui.theme.getPriorityColor
 import com.shaiful.mynote.utils.priorityList
 

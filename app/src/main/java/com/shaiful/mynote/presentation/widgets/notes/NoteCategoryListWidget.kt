@@ -1,6 +1,5 @@
-package com.shaiful.mynote.presentation.widgets
+package com.shaiful.mynote.presentation.widgets.notes
 
-import CategoryOptionTile
 import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
@@ -35,8 +34,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.shaiful.mynote.data.tables.Note
-import com.shaiful.mynote.domain.entities.AddNoteItem
-import com.shaiful.mynote.domain.entities.NoteCategory
 import com.shaiful.mynote.presentation.utility_widgets.VerticalSpace
 import com.shaiful.mynote.presentation.viewmodels.NoteViewmodel
 import java.time.LocalDateTime
