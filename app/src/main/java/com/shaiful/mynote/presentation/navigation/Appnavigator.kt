@@ -16,7 +16,7 @@ fun AppNavigator(onThemeChange: (Boolean) -> Unit, isDarkTheme: Boolean) {
             HomeScreen(navController = navHostController, onThemeChange = onThemeChange, isDarkTheme = isDarkTheme)
         }
         composable(RouteNames.stopwatchScreen) {
-            StopwatchScreen()
+            StopwatchScreen(navController = navHostController)
         }
     }
 }
