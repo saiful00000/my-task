@@ -99,4 +99,7 @@ dependencies {
     /// Coroutine
     implementation(libs.kotlinx.coroutines.android)
 
+    // Lottie animation
+    implementation(libs.lottie.compose)
+
 }
