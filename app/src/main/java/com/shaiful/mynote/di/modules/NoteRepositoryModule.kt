@@ -21,15 +21,6 @@ import javax.inject.Singleton
 class NoteRepositoryModule {
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): NotesDatabase {
-        return Room
-            .databaseBuilder(context, NotesDatabase::class.java, "note_database")
-            .addMigrations()
-            .build()
-    }
-
-    @Provides
-    @Singleton
     fun provideNoteDao(database: NotesDatabase) = database.noteDao()
 
     @Provides

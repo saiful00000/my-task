@@ -40,6 +40,7 @@ fun MenuBottomSheet(onDismiss: () -> Unit, navController: NavController) {
             icon = Icons.Sharp.EventRepeat,
             onTap = {
                 onDismiss()
+                navController.navigate(RouteNames.habitTrackerScreen)
             }
         ),
         MenuItem(

@@ -4,6 +4,8 @@ import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.shaiful.mynote.data.daos.CategoryDao
+import com.shaiful.mynote.data.daos.HabitCheckedDateDao
+import com.shaiful.mynote.data.daos.HabitDao
 import com.shaiful.mynote.data.daos.NoteDao
 import com.shaiful.mynote.data.tables.Category
 import com.shaiful.mynote.data.tables.Note
@@ -21,4 +23,6 @@ import com.shaiful.mynote.data.tables.Note
 abstract class NotesDatabase: RoomDatabase() {
     abstract fun noteDao(): NoteDao
     abstract fun categoryDao(): CategoryDao
+    abstract fun habitDao(): HabitDao
+    abstract fun habitCheckedDateDao(): HabitCheckedDateDao
 }

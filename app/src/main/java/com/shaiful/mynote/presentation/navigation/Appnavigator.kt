@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.shaiful.mynote.presentation.screens.HabitTrackerScreen
 import com.shaiful.mynote.presentation.screens.HomeScreen
 import com.shaiful.mynote.presentation.screens.StopwatchScreen
 
@@ -17,6 +18,9 @@ fun AppNavigator(onThemeChange: (Boolean) -> Unit, isDarkTheme: Boolean) {
         }
         composable(RouteNames.stopwatchScreen) {
             StopwatchScreen(navController = navHostController)
+        }
+        composable (RouteNames.habitTrackerScreen) {
+            HabitTrackerScreen(navController = navHostController)
         }
     }
 }
