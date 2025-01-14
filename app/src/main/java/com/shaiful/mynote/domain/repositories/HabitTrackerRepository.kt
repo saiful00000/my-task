@@ -4,7 +4,7 @@ import com.shaiful.mynote.data.tables.Habit
 import com.shaiful.mynote.data.tables.HabitCheckedDates
 import kotlinx.coroutines.flow.Flow
 
-interface HabitRepository {
+interface HabitTrackerRepository {
     suspend fun insertHabit(habit: Habit)
     suspend fun updateHabit(habit: Habit)
     suspend fun deleteHabit(habit: Habit)

@@ -3,8 +3,8 @@ package com.shaiful.mynote.di.modules
 import com.shaiful.mynote.data.daos.HabitCheckedDateDao
 import com.shaiful.mynote.data.daos.HabitDao
 import com.shaiful.mynote.data.databases.NotesDatabase
-import com.shaiful.mynote.data.repository.HabitRepositoryImpl
-import com.shaiful.mynote.domain.repositories.HabitRepository
+import com.shaiful.mynote.data.repository.HabitTrackerRepositoryImpl
+import com.shaiful.mynote.domain.repositories.HabitTrackerRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,8 +25,8 @@ class HabitRepositoryModule {
 
     @Provides
     @Singleton
-    fun provideHabitRepository(habitDao: HabitDao, habitCheckedDateDao: HabitCheckedDateDao): HabitRepository {
-        return HabitRepositoryImpl(habitDao, habitCheckedDateDao)
+    fun provideHabitRepository(habitDao: HabitDao, habitCheckedDateDao: HabitCheckedDateDao): HabitTrackerRepository {
+        return HabitTrackerRepositoryImpl(habitDao, habitCheckedDateDao)
     }
 
 
