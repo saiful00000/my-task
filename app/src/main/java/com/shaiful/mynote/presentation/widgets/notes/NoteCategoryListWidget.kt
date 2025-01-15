@@ -113,7 +113,8 @@ fun NoteCategoryListWidget(
                 }
 
                 Column(
-                    modifier = Modifier.padding(horizontal = 8.dp)
+                    modifier = Modifier.padding(horizontal = 8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     if (index == 0) {
                         VerticalSpace(height = 10)
@@ -178,6 +179,10 @@ fun NoteCategoryListWidget(
                             noteViewmodel = noteViewModel,
                             category = category,
                         )
+                    }
+
+                    if(index == categoryList.size - 1) {
+                        ThinButton(onClick =  onAddCategoryBtnClick, text = "Add Category")
                     }
                 }
             }

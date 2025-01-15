@@ -30,6 +30,6 @@ fun ThinButton(onClick: () -> Unit, text: String, fillMaxWidth: Boolean = false)
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
         ),
     ) {
-        Text(text = text)
+        Text(text = text, modifier = Modifier.padding(vertical = 0.dp))
     }
 }

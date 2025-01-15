@@ -52,11 +52,11 @@ fun NoteListWidget(isDarkTheme: Boolean, noteViewmodel: NoteViewmodel, category:
                     VerticalSpace(height = 4)
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.Top
                     ) {
                         Box(
                             modifier = Modifier
-                                .size(14.dp)
+                                .size(12.dp)
                                 .clip(RoundedCornerShape(4.dp))
                                 .background(color = getPriorityColorById(item.priority))
                         )
@@ -86,18 +86,24 @@ fun NoteListWidget(isDarkTheme: Boolean, noteViewmodel: NoteViewmodel, category:
                     }
                     VerticalSpace(height = 4)
                     if (item.description.isNotBlank()) {
-                        Text(
-                            text = item.description,
-                            style = TextStyle(
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                textDecoration = if (item.isDone == true) TextDecoration.LineThrough else TextDecoration.None,
-                            ),
-                            maxLines = 3,
-                            overflow = TextOverflow.Ellipsis,
-                        )
+                        Row {
+                            HorizontalSpace(width = 12)
+                            HorizontalSpace(width = 4)
+                            Text(
+                                text = item.description,
+                                style = TextStyle(
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    textDecoration = if (item.isDone == true) TextDecoration.LineThrough else TextDecoration.None,
+                                ),
+                                maxLines = 3,
+                                overflow = TextOverflow.Ellipsis,
+                            )
+                        }
                     }
                     VerticalSpace(height = 8)
                     HorizontalDivider(color = if (isDarkTheme) OnDarkBorder else OnLightBorder)
+                    VerticalSpace(height = 8)
+
                     if (index == itemsList.size - 1) {
                         VerticalSpace(height = 24)
                     }
