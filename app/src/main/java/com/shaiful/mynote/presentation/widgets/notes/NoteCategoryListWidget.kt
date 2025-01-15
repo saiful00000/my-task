@@ -38,6 +38,7 @@ import com.shaiful.mynote.data.tables.Note
 import com.shaiful.mynote.presentation.utility_widgets.VerticalSpace
 import com.shaiful.mynote.presentation.viewmodels.NoteViewmodel
 import com.shaiful.mynote.presentation.widgets.NilWidget
+import com.shaiful.mynote.presentation.widgets.ThinButton
 import java.time.LocalDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,16 +46,27 @@ import java.time.LocalDateTime
 fun NoteCategoryListWidget(
     innerPadding: PaddingValues,
     isDarkTheme: Boolean,
-    noteViewModel: NoteViewmodel
+    noteViewModel: NoteViewmodel,
+    onAddCategoryBtnClick: () -> Unit
 ) {
 
     val categoryList by noteViewModel.allCategories.collectAsState()
 
     if (categoryList.isEmpty()) {
-        NilWidget(
-            message = "No Notes Yet!",
-            modifier = Modifier.padding(innerPadding).fillMaxSize(),
-        )
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            NilWidget(message = "No Notes Yet!")
+            VerticalSpace(height = 24)
+            ThinButton(
+                onClick = onAddCategoryBtnClick,
+                text = "Add Category"
+            )
+        }
     } else {
         val expandedState =
             remember(categoryList) { mutableStateListOf(*Array(categoryList.size) { false }) }

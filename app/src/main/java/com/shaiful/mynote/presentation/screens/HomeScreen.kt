@@ -1,13 +1,10 @@
 package com.shaiful.mynote.presentation.screens
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -23,7 +20,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shaiful.mynote.presentation.viewmodels.NoteViewmodel
 import com.shaiful.mynote.presentation.widgets.notes.CategoryCreationDialog
@@ -79,15 +75,6 @@ fun HomeScreen(
                 },
             )
         },
-        floatingActionButton = {
-            FloatingActionButton(onClick = { showCategoryCreationDialog = true }) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add",
-                    modifier = Modifier.padding(end = 4.dp),
-                )
-            }
-        }
     ) { innerPadding ->
 
         if (showUsernameDialog) {
@@ -122,7 +109,10 @@ fun HomeScreen(
         NoteCategoryListWidget(
             innerPadding = innerPadding,
             isDarkTheme = isDarkTheme,
-            noteViewModel = noteViewModel
+            noteViewModel = noteViewModel,
+            onAddCategoryBtnClick = {
+                showCategoryCreationDialog = true
+            },
         )
     }
 }
