@@ -25,6 +25,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.shaiful.mynote.presentation.models.MenuItem
@@ -106,7 +107,8 @@ fun MenuItemCard(menuItem: MenuItem) {
             VerticalSpace(height = 8)
             Text(
                 text = menuItem.name,
-                style = MaterialTheme.typography.bodySmall
+                style = MaterialTheme.typography.bodySmall,
+                fontWeight = FontWeight.Thin
             )
         }
     }
