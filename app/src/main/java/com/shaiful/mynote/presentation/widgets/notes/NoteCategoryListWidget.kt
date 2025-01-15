@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -36,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import com.shaiful.mynote.data.tables.Note
 import com.shaiful.mynote.presentation.utility_widgets.VerticalSpace
 import com.shaiful.mynote.presentation.viewmodels.NoteViewmodel
+import com.shaiful.mynote.presentation.widgets.NilWidget
 import java.time.LocalDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,7 +51,10 @@ fun NoteCategoryListWidget(
     val categoryList by noteViewModel.allCategories.collectAsState()
 
     if (categoryList.isEmpty()) {
-        Text(text = "Empty Category")
+        NilWidget(
+            message = "No Notes Yet!",
+            modifier = Modifier.padding(innerPadding).fillMaxSize(),
+        )
     } else {
         val expandedState =
             remember(categoryList) { mutableStateListOf(*Array(categoryList.size) { false }) }
