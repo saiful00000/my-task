@@ -108,7 +108,7 @@ fun MenuItemCard(menuItem: MenuItem) {
             Text(
                 text = menuItem.name,
                 style = MaterialTheme.typography.bodySmall,
-                fontWeight = FontWeight.Thin
+                fontWeight = FontWeight.Light
             )
         }
     }

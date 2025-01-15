@@ -64,7 +64,7 @@ fun NoteCategoryListWidget(
             VerticalSpace(height = 24)
             ThinButton(
                 onClick = onAddCategoryBtnClick,
-                text = "Add Category"
+                text = "Add New Category"
             )
         }
     } else {
@@ -182,7 +182,7 @@ fun NoteCategoryListWidget(
                     }
 
                     if(index == categoryList.size - 1) {
-                        ThinButton(onClick =  onAddCategoryBtnClick, text = "Add Category")
+                        ThinButton(onClick =  onAddCategoryBtnClick, text = "Add New Category")
                     }
                 }
             }
