@@ -45,6 +45,7 @@ import com.shaiful.mynote.presentation.widgets.AppBar
 import com.shaiful.mynote.presentation.widgets.NilWidget
 import com.shaiful.mynote.presentation.widgets.ThinButton
 import com.shaiful.mynote.presentation.widgets.habit.HabitCreationDialog
+import com.shaiful.mynote.presentation.widgets.habit.HabitStatusIcon
 import com.shaiful.mynote.ui.theme.PriorityHigh
 import com.shaiful.mynote.ui.theme.PriorityMedium
 import java.time.LocalDate
@@ -135,9 +136,17 @@ fun HabitTrackerScreen(
                             }
 
                             dates.forEachIndexed { index, date ->
-                                val dayType = if (date == currentDate) DayType.Current else if (currentDate.isAfter(date)) DayType.Previous else DayType.Forward
+                                val dayType =
+                                    if (date == currentDate) DayType.Current else if (currentDate.isAfter(
+                                            date
+                                        )
+                                    ) DayType.Previous else DayType.Forward
 
-                                val checkedDates by viewmodel.getCheckedDatesByMonthAndYear(habit.id, currentMonth, currentYear).collectAsState()
+                                val checkedDates by viewmodel.getCheckedDatesByMonthAndYear(
+                                    habit.id,
+                                    currentMonth,
+                                    currentYear
+                                ).collectAsState()
 
                                 var isChecked = false
 
@@ -159,17 +168,23 @@ fun HabitTrackerScreen(
                                                 )
                                             )
                                         }
-                                    }, shape = RoundedCornerShape(4.dp)
+                                    }, shape = RoundedCornerShape(4.dp),
+                                    modifier = Modifier
+                                        .weight(1F)
+                                        .padding(4.dp),
+
                                 ) {
                                     Box(
-                                        modifier = Modifier.padding(
-                                            horizontal = 4.dp, vertical = 10.dp
-                                        ),
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(
+                                                horizontal = 4.dp, vertical = 10.dp
+                                            ),
+                                        contentAlignment = Alignment.Center
                                     ) {
                                         Column(
                                             horizontalAlignment = Alignment.CenterHorizontally,
-                                            verticalArrangement = Arrangement.Center,
-
+                                            verticalArrangement = Arrangement.SpaceEvenly,
                                             ) {
                                             Text(
                                                 text = date.dayOfWeek.getDisplayName(
@@ -180,9 +195,12 @@ fun HabitTrackerScreen(
                                                     fontSize = 12.sp,
                                                 )
                                             )
-
-                                            HabitIcon(dayType = dayType, isChecked = isChecked)
-
+                                            VerticalSpace(height = 4)
+                                            HabitStatusIcon(
+                                                dayType = dayType,
+                                                isChecked = isChecked
+                                            )
+                                            VerticalSpace(height = 4)
                                             Text(
                                                 text = date.format(dateFormatter),
                                                 style = TextStyle(
@@ -210,31 +228,4 @@ fun HabitTrackerScreen(
             }
         }
     }
-}
-
-@Composable
-fun HabitIcon(dayType: DayType, isChecked: Boolean) {
-
-    var imageVector: ImageVector
-    var iconColor: Color
-
-    when (dayType) {
-        DayType.Current, DayType.Previous -> {
-            if (isChecked) {
-                imageVector = Icons.Default.CheckCircleOutline
-                iconColor = PriorityMedium
-            } else {
-                imageVector = Icons.Outlined.Cancel
-                iconColor = PriorityHigh
-            }
-        }
-
-        DayType.Forward -> {
-            imageVector = Icons.Outlined.Pending
-            iconColor = Color.Gray
-        }
-    }
-
-
-    Icon(imageVector = imageVector, contentDescription = "Habit Status Icon", tint = iconColor)
 }
