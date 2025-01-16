@@ -15,10 +15,10 @@ import com.shaiful.mynote.data.tables.Note
 
 @Database(
     entities = [Category::class, Note::class, Habit::class, HabitCheckedDates::class],
-    version = 2,
+    version = 1,
     exportSchema = true,
     autoMigrations = [
-        AutoMigration(from = 1, to = 2),
+//        AutoMigration(from = 1, to = 2),
 //        AutoMigration(from = 2, to = 3)
     ]
 )

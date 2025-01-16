@@ -17,5 +17,7 @@ import androidx.room.PrimaryKey
 data class HabitCheckedDates(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val habitId: Int,
-    val date: String
+    val date: String,
+    val month: Int,
+    val year: Int
 )
