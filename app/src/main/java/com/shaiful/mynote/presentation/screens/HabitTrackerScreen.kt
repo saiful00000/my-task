@@ -10,13 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircleOutline
-import androidx.compose.material.icons.outlined.Cancel
-import androidx.compose.material.icons.outlined.Pending
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,9 +22,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -46,8 +38,7 @@ import com.shaiful.mynote.presentation.widgets.NilWidget
 import com.shaiful.mynote.presentation.widgets.ThinButton
 import com.shaiful.mynote.presentation.widgets.habit.HabitCreationDialog
 import com.shaiful.mynote.presentation.widgets.habit.HabitStatusIcon
-import com.shaiful.mynote.ui.theme.PriorityHigh
-import com.shaiful.mynote.ui.theme.PriorityMedium
+import com.shaiful.mynote.presentation.widgets.notes.HabitOptionMenuButton
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -100,26 +91,37 @@ fun HabitTrackerScreen(
             LazyColumn(modifier = Modifier.padding(it)) {
                 itemsIndexed(habitList) { index, habit ->
                     Column(
-                        modifier = Modifier.padding(horizontal = 8.dp),
+                        modifier = Modifier.padding(horizontal = 12.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Box(
                             modifier = Modifier
-                                .padding(start = 8.dp, bottom = 16.dp)
                                 .fillMaxWidth()
-                                .clip(RoundedCornerShape(5.dp))
-                                .padding(top = 8.dp, bottom = 8.dp, start = 8.dp),
+                                .padding(horizontal = 4.dp),
                         ) {
-                            Text(
-                                text = habit.habitName,
-                                style = TextStyle(fontWeight = FontWeight(700)),
-                            )
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Text(
+                                    text = habit.habitName,
+                                    style = TextStyle(fontWeight = FontWeight(700)),
+                                    modifier = Modifier.weight(1F)
+                                )
+                                HabitOptionMenuButton(
+                                    onDetails = {
+                                        viewmodel.deleteHabit(habit)
+                                    },
+                                    onDelete = {},
+                                )
+                            }
                         }
 
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(vertical = 8.dp),
+                                .padding(bottom = 16.dp),
                             horizontalArrangement = Arrangement.SpaceEvenly,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
@@ -157,7 +159,8 @@ fun HabitTrackerScreen(
                                 }
 
                                 Card(
-                                    elevation = CardDefaults.cardElevation(1.dp), onClick = {
+                                    elevation = CardDefaults.cardElevation(1.dp),
+                                    onClick = {
                                         if (dayType == DayType.Current || dayType == DayType.Previous) {
                                             viewmodel.insertCheckedDate(
                                                 HabitCheckedDates(
@@ -168,12 +171,13 @@ fun HabitTrackerScreen(
                                                 )
                                             )
                                         }
-                                    }, shape = RoundedCornerShape(4.dp),
+                                    },
+                                    shape = RoundedCornerShape(5.dp),
                                     modifier = Modifier
                                         .weight(1F)
                                         .padding(4.dp),
 
-                                ) {
+                                    ) {
                                     Box(
                                         modifier = Modifier
                                             .fillMaxSize()
@@ -185,27 +189,22 @@ fun HabitTrackerScreen(
                                         Column(
                                             horizontalAlignment = Alignment.CenterHorizontally,
                                             verticalArrangement = Arrangement.SpaceEvenly,
-                                            ) {
-                                            Text(
-                                                text = date.dayOfWeek.getDisplayName(
-                                                    java.time.format.TextStyle.SHORT,
-                                                    Locale.getDefault()
-                                                ), style = TextStyle(
-                                                    fontWeight = if (dayType == DayType.Current) FontWeight.Bold else FontWeight.Normal,
-                                                    fontSize = 12.sp,
-                                                )
-                                            )
-                                            VerticalSpace(height = 4)
+                                        ) {
                                             HabitStatusIcon(
                                                 dayType = dayType,
                                                 isChecked = isChecked
                                             )
                                             VerticalSpace(height = 4)
                                             Text(
-                                                text = date.format(dateFormatter),
+                                                text = "${
+                                                    date.dayOfWeek.getDisplayName(
+                                                        java.time.format.TextStyle.SHORT,
+                                                        Locale.getDefault()
+                                                    )
+                                                } ${date.format(dateFormatter)}",
                                                 style = TextStyle(
                                                     fontWeight = if (dayType == DayType.Current) FontWeight.Bold else FontWeight.Normal,
-                                                    fontSize = 10.sp,
+                                                    fontSize = 9.sp,
                                                 )
                                             )
                                         }

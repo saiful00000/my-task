@@ -14,6 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.shaiful.mynote.domain.DayType
+import com.shaiful.mynote.ui.theme.BrightGreen
+import com.shaiful.mynote.ui.theme.Orange
 import com.shaiful.mynote.ui.theme.PriorityHigh
 import com.shaiful.mynote.ui.theme.PriorityMedium
 
@@ -27,10 +29,10 @@ fun HabitStatusIcon(dayType: DayType, isChecked: Boolean) {
         DayType.Current, DayType.Previous -> {
             if (isChecked) {
                 imageVector = Icons.Default.Check
-                iconColor = PriorityMedium
+                iconColor = BrightGreen
             } else {
                 imageVector = Icons.Outlined.Cancel
-                iconColor = PriorityHigh
+                iconColor = Orange
             }
         }
 

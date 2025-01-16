@@ -26,3 +26,4 @@ val OnDarkBorder = Color(0xFF2C2A2A)
 
 
 val Orange = Color(0xFFFF8C00)
+val BrightGreen = Color(0xFF34CE0A)
