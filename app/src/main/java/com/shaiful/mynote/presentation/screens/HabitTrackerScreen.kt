@@ -1,6 +1,5 @@
 package com.shaiful.mynote.presentation.screens
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,8 +11,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Block
-import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.material.icons.filled.CheckCircleOutline
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material.icons.outlined.Pending
@@ -31,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -47,6 +45,8 @@ import com.shaiful.mynote.presentation.widgets.AppBar
 import com.shaiful.mynote.presentation.widgets.NilWidget
 import com.shaiful.mynote.presentation.widgets.ThinButton
 import com.shaiful.mynote.presentation.widgets.habit.HabitCreationDialog
+import com.shaiful.mynote.ui.theme.PriorityHigh
+import com.shaiful.mynote.ui.theme.PriorityMedium
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -124,6 +124,8 @@ fun HabitTrackerScreen(
                         ) {
                             // Calculate dates
                             val currentDate = LocalDate.now()
+                            val currentMonth = currentDate.month.value
+                            val currentYear = currentDate.year
                             val dateFormatter = DateTimeFormatter.ofPattern("dd MMM")
 
                             val databaseDateFormater = DateTimeFormatter.ofPattern("yyyy-MM-dd")
@@ -135,17 +137,11 @@ fun HabitTrackerScreen(
                             dates.forEachIndexed { index, date ->
                                 val dayType = if (date == currentDate) DayType.Current else if (currentDate.isAfter(date)) DayType.Previous else DayType.Forward
 
-                                val checkedDates by viewmodel.getCheckedDatesForHabit(habit.id).collectAsState()
+                                val checkedDates by viewmodel.getCheckedDatesByMonthAndYear(habit.id, currentMonth, currentYear).collectAsState()
 
                                 var isChecked = false
-                                // forceach on checkedDatees
+
                                 checkedDates.forEach {
-//                                    Log.i("month and year", "${it.month} - ${it.year}")
-//                                    if (date.year == it.year) {
-//                                        if (date.month.value == it.month) {
-//                                            isChecked = true
-//                                        }
-//                                    }
                                     if (date.format(databaseDateFormater) == it.date) {
                                         isChecked = true
                                     }
@@ -153,7 +149,7 @@ fun HabitTrackerScreen(
 
                                 Card(
                                     elevation = CardDefaults.cardElevation(1.dp), onClick = {
-                                        if (dayType == DayType.Current) {
+                                        if (dayType == DayType.Current || dayType == DayType.Previous) {
                                             viewmodel.insertCheckedDate(
                                                 HabitCheckedDates(
                                                     habitId = habit.id,
@@ -220,21 +216,25 @@ fun HabitTrackerScreen(
 fun HabitIcon(dayType: DayType, isChecked: Boolean) {
 
     var imageVector: ImageVector
+    var iconColor: Color
 
     when (dayType) {
         DayType.Current, DayType.Previous -> {
-            imageVector = if (isChecked) {
-                Icons.Default.CheckCircleOutline
+            if (isChecked) {
+                imageVector = Icons.Default.CheckCircleOutline
+                iconColor = PriorityMedium
             } else {
-                Icons.Outlined.Cancel
+                imageVector = Icons.Outlined.Cancel
+                iconColor = PriorityHigh
             }
         }
 
         DayType.Forward -> {
             imageVector = Icons.Outlined.Pending
+            iconColor = Color.Gray
         }
     }
 
 
-    Icon(imageVector = imageVector, contentDescription = "Habit Status Icon")
+    Icon(imageVector = imageVector, contentDescription = "Habit Status Icon", tint = iconColor)
 }

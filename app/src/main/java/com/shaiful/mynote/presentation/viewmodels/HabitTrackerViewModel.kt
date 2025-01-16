@@ -48,6 +48,18 @@ class HabitTrackerViewModel @Inject constructor(
         }
     }
 
+    private val checkedDatesCacheByMonth = mutableMapOf<Int, StateFlow<List<HabitCheckedDates>>>()
+
+    fun getCheckedDatesByMonthAndYear(habitId: Int, month: Int, year: Int): StateFlow<List<HabitCheckedDates>> {
+        return checkedDatesCacheByMonth.getOrPut(habitId) {
+            repository.getCheckedDatesByMonthAndYear(habitId = habitId, month = month, year = year).stateIn(
+                viewModelScope,
+                SharingStarted.WhileSubscribed(5000),
+                emptyList()
+            )
+        }
+    }
+
     fun insertCheckedDate(habitCheckedDates: HabitCheckedDates) = viewModelScope.launch {
         repository.insertCheckedDate(habitCheckedDates)
     }

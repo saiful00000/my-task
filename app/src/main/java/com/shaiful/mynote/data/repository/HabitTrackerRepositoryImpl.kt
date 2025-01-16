@@ -6,6 +6,7 @@ import com.shaiful.mynote.data.tables.Habit
 import com.shaiful.mynote.data.tables.HabitCheckedDates
 import com.shaiful.mynote.domain.repositories.HabitTrackerRepository
 import kotlinx.coroutines.flow.Flow
+import java.time.Month
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -22,8 +23,15 @@ class HabitTrackerRepositoryImpl @Inject constructor(
 
     override fun getHabits(): Flow<List<Habit>> = habitDao.getAllHabits()
 
-    override suspend fun insertCheckedDate(habitCheckedDates: HabitCheckedDates) = habitCheckedDateDao.insertCheckedDate(habitCheckedDates)
+    override suspend fun insertCheckedDate(habitCheckedDates: HabitCheckedDates) =
+        habitCheckedDateDao.insertCheckedDate(habitCheckedDates)
 
-    override fun getCheckedDatesForHabit(habitId: Int): Flow<List<HabitCheckedDates>> = habitCheckedDateDao.getCheckedDatesForHabit(habitId)
+    override fun getCheckedDatesForHabit(habitId: Int): Flow<List<HabitCheckedDates>> =
+        habitCheckedDateDao.getCheckedDatesForHabit(habitId)
+
+    override fun getCheckedDatesByMonthAndYear(
+        habitId: Int, month: Int, year: Int
+    ): Flow<List<HabitCheckedDates>> =
+        habitCheckedDateDao.getCheckedDatesByMonthAndYear(habitId, month, year)
 
 }

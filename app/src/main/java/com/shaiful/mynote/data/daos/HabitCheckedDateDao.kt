@@ -16,4 +16,7 @@ interface HabitCheckedDateDao {
     @Query("SELECT * FROM habit_checked_dates WHERE habitId = :habitId")
     fun getCheckedDatesForHabit(habitId: Int): Flow<List<HabitCheckedDates>>
 
+    @Query("SELECT * FROM habit_checked_dates WHERE habitId = :habitId AND month = :month AND year = :year")
+    fun getCheckedDatesByMonthAndYear(habitId: Int, month: Int, year: Int): Flow<List<HabitCheckedDates>>
+
 }

@@ -11,6 +11,9 @@ interface HabitTrackerRepository {
     fun getHabits(): Flow<List<Habit>>
 
     suspend fun insertCheckedDate(habitCheckedDates: HabitCheckedDates)
+
     fun getCheckedDatesForHabit(habitId: Int): Flow<List<HabitCheckedDates>>
+
+    fun getCheckedDatesByMonthAndYear(habitId: Int, month: Int, year: Int): Flow<List<HabitCheckedDates>>
 
 }
