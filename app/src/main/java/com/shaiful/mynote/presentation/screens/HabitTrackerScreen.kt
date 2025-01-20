@@ -111,9 +111,11 @@ fun HabitTrackerScreen(
                                 )
                                 HabitOptionMenuButton(
                                     onDetails = {
+
+                                    },
+                                    onDelete = {
                                         viewmodel.deleteHabit(habit)
                                     },
-                                    onDelete = {},
                                 )
                             }
                         }
@@ -228,3 +230,4 @@ fun HabitTrackerScreen(
         }
     }
 }
+

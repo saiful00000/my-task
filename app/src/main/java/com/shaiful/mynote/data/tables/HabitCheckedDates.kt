@@ -10,7 +10,8 @@ import androidx.room.PrimaryKey
         ForeignKey(
             entity = Habit::class,
             parentColumns = ["id"],
-            childColumns = ["habitId"]
+            childColumns = ["habitId"],
+            onDelete = ForeignKey.CASCADE
         )
     ]
 )
