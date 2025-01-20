@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.MoreHoriz
+import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
@@ -68,9 +69,8 @@ fun HabitOptionMenuButton(
                 text = {
                     Row {
                         Icon(
-                            imageVector = Icons.Default.Check,
+                            imageVector = Icons.Rounded.Info,
                             contentDescription = "Details",
-                            tint = PriorityMedium,
                         )
                         Box(modifier = Modifier.width(4.dp))
                         Text(text = "Details")
