@@ -34,6 +34,7 @@ import com.shaiful.mynote.domain.DayType
 import com.shaiful.mynote.presentation.utility_widgets.VerticalSpace
 import com.shaiful.mynote.presentation.viewmodels.HabitTrackerViewModel
 import com.shaiful.mynote.presentation.widgets.AppBar
+import com.shaiful.mynote.presentation.widgets.ConfirmationDialog
 import com.shaiful.mynote.presentation.widgets.NilWidget
 import com.shaiful.mynote.presentation.widgets.ThinButton
 import com.shaiful.mynote.presentation.widgets.habit.HabitCreationDialog
@@ -54,6 +55,11 @@ fun HabitTrackerScreen(
         mutableStateOf(false)
     }
 
+    var showDeleteConfirmationDialog by remember {
+        mutableStateOf(false)
+    }
+    var habitToDelete: Habit? = null
+
     Scaffold(
         topBar = {
             AppBar(title = "Habit Tracker", navController = navController)
@@ -69,6 +75,22 @@ fun HabitTrackerScreen(
             }, onDismiss = {
                 showHabitCreationDialog = false
             })
+        }
+
+        if (showDeleteConfirmationDialog) {
+            ConfirmationDialog(
+                title = "Delete Habit",
+                message = "Are you sure you want to delete this habit?",
+                onDismiss = {
+                    showDeleteConfirmationDialog = false
+                },
+                onConfirm = {
+                    showDeleteConfirmationDialog = false
+                    if (habitToDelete != null) {
+                        viewmodel.deleteHabit(habitToDelete!!)
+                    }
+                },
+            )
         }
 
         if (habitList.isEmpty()) {
@@ -114,7 +136,8 @@ fun HabitTrackerScreen(
 
                                     },
                                     onDelete = {
-                                        viewmodel.deleteHabit(habit)
+                                        showDeleteConfirmationDialog = true
+                                        habitToDelete = habit
                                     },
                                 )
                             }
