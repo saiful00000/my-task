@@ -176,25 +176,38 @@ fun HabitTrackerScreen(
                                 ).collectAsState()
 
                                 var isChecked = false
+                                var currentHabitCheckedDate: HabitCheckedDates? = null
 
                                 checkedDates.forEach {
                                     if (date.format(databaseDateFormater) == it.date) {
                                         isChecked = true
+                                        currentHabitCheckedDate = it
                                     }
                                 }
 
                                 Card(
                                     elevation = CardDefaults.cardElevation(1.dp),
                                     onClick = {
-                                        if (dayType == DayType.Current /* || dayType == DayType.Previous*/) {
-                                            viewmodel.insertCheckedDate(
-                                                HabitCheckedDates(
-                                                    habitId = habit.id,
-                                                    date = date.format(databaseDateFormater),
-                                                    month = date.month.value,
-                                                    year = date.year,
-                                                )
-                                            )
+                                        if (dayType == DayType.Current  || dayType == DayType.Previous) {
+                                            when (isChecked) {
+                                                true -> {
+                                                    if (currentHabitCheckedDate != null) {
+                                                        viewmodel.deleteCheckedDate(
+                                                            currentHabitCheckedDate!!
+                                                        )
+                                                    }
+                                                }
+                                                false -> {
+                                                    viewmodel.insertCheckedDate(
+                                                        HabitCheckedDates(
+                                                            habitId = habit.id,
+                                                            date = date.format(databaseDateFormater),
+                                                            month = date.month.value,
+                                                            year = date.year,
+                                                        )
+                                                    )
+                                                }
+                                            }
                                         }
                                     },
                                     shape = RoundedCornerShape(5.dp),
