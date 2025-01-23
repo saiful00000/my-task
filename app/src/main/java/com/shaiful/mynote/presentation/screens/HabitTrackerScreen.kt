@@ -186,7 +186,7 @@ fun HabitTrackerScreen(
                                 Card(
                                     elevation = CardDefaults.cardElevation(1.dp),
                                     onClick = {
-                                        if (dayType == DayType.Current || dayType == DayType.Previous) {
+                                        if (dayType == DayType.Current /* || dayType == DayType.Previous*/) {
                                             viewmodel.insertCheckedDate(
                                                 HabitCheckedDates(
                                                     habitId = habit.id,
