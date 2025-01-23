@@ -63,4 +63,8 @@ class HabitTrackerViewModel @Inject constructor(
     fun insertCheckedDate(habitCheckedDates: HabitCheckedDates) = viewModelScope.launch {
         repository.insertCheckedDate(habitCheckedDates)
     }
+
+    fun deleteCheckedDate(habitCheckedDates: HabitCheckedDates) = viewModelScope.launch {
+        repository.deleteHabitCheckedDate(habitCheckedDates)
+    }
 }

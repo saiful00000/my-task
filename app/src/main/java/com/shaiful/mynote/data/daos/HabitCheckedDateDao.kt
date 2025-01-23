@@ -1,6 +1,7 @@
 package com.shaiful.mynote.data.daos
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -18,5 +19,8 @@ interface HabitCheckedDateDao {
 
     @Query("SELECT * FROM habit_checked_dates WHERE habitId = :habitId AND month = :month AND year = :year")
     fun getCheckedDatesByMonthAndYear(habitId: Int, month: Int, year: Int): Flow<List<HabitCheckedDates>>
+
+    @Delete
+    suspend fun deleteCheckedDate(habitCheckedDates: HabitCheckedDates)
 
 }

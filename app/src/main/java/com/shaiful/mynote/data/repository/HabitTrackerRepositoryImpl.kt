@@ -34,4 +34,6 @@ class HabitTrackerRepositoryImpl @Inject constructor(
     ): Flow<List<HabitCheckedDates>> =
         habitCheckedDateDao.getCheckedDatesByMonthAndYear(habitId, month, year)
 
+    override suspend fun deleteHabitCheckedDate(habitCheckedDates: HabitCheckedDates) = habitCheckedDateDao.deleteCheckedDate(habitCheckedDates)
+
 }
