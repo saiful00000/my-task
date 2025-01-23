@@ -1,5 +1,6 @@
 package com.shaiful.mynote.presentation.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,9 +10,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,6 +43,8 @@ import com.shaiful.mynote.presentation.widgets.ThinButton
 import com.shaiful.mynote.presentation.widgets.habit.HabitCreationDialog
 import com.shaiful.mynote.presentation.widgets.habit.HabitStatusIcon
 import com.shaiful.mynote.presentation.widgets.notes.HabitOptionMenuButton
+import com.shaiful.mynote.ui.theme.BrightGreen
+import com.shaiful.mynote.ui.theme.Purple40
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -158,9 +163,11 @@ fun HabitTrackerScreen(
 
                             val databaseDateFormater = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
-                            val dates = List(5) { offset ->
-                                currentDate.plusDays((offset - 2).toLong()) // Generate -2, -1, 0, +1, +2 days
-                            }
+//                            val dates = List(5) { offset ->
+//                                currentDate.plusDays((offset - 2).toLong()) // Generate -2, -1, 0, +1, +2 days
+//                            }
+
+                            val dates = viewmodel.getDatesOfCurrentWeek()
 
                             dates.forEachIndexed { index, date ->
                                 val dayType =
@@ -188,7 +195,7 @@ fun HabitTrackerScreen(
                                 Card(
                                     elevation = CardDefaults.cardElevation(1.dp),
                                     onClick = {
-                                        if (dayType == DayType.Current  || dayType == DayType.Previous) {
+                                        if (dayType == DayType.Current || dayType == DayType.Previous) {
                                             when (isChecked) {
                                                 true -> {
                                                     if (currentHabitCheckedDate != null) {
@@ -197,6 +204,7 @@ fun HabitTrackerScreen(
                                                         )
                                                     }
                                                 }
+
                                                 false -> {
                                                     viewmodel.insertCheckedDate(
                                                         HabitCheckedDates(
@@ -211,6 +219,7 @@ fun HabitTrackerScreen(
                                         }
                                     },
                                     shape = RoundedCornerShape(5.dp),
+                                    border = if (dayType == DayType.Current) BorderStroke(1.dp, color = MaterialTheme.colorScheme.primary) else null,
                                     modifier = Modifier
                                         .weight(1F)
                                         .padding(4.dp),
@@ -234,15 +243,20 @@ fun HabitTrackerScreen(
                                             )
                                             VerticalSpace(height = 4)
                                             Text(
-                                                text = "${
-                                                    date.dayOfWeek.getDisplayName(
-                                                        java.time.format.TextStyle.SHORT,
-                                                        Locale.getDefault()
-                                                    )
-                                                } ${date.format(dateFormatter)}",
+                                                text = date.dayOfWeek.getDisplayName(
+                                                    java.time.format.TextStyle.SHORT,
+                                                    Locale.getDefault()
+                                                ),
                                                 style = TextStyle(
                                                     fontWeight = if (dayType == DayType.Current) FontWeight.Bold else FontWeight.Normal,
                                                     fontSize = 9.sp,
+                                                )
+                                            )
+                                            Text(
+                                                text = date.format(dateFormatter),
+                                                style = TextStyle(
+                                                    fontWeight = if (dayType == DayType.Current) FontWeight.Bold else FontWeight.Normal,
+                                                    fontSize = 8.sp,
                                                 )
                                             )
                                         }

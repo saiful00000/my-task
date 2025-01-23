@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.shaiful.mynote.data.tables.Habit
 import com.shaiful.mynote.data.tables.HabitCheckedDates
 import com.shaiful.mynote.domain.repositories.HabitTrackerRepository
+import com.shaiful.mynote.utils.DateUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HabitTrackerViewModel @Inject constructor(
-    private val repository: HabitTrackerRepository
+    private val repository: HabitTrackerRepository,
+    private val dateUtils: DateUtils
 ) : ViewModel() {
 
     val allHabits = repository.getHabits().stateIn(
@@ -67,4 +69,6 @@ class HabitTrackerViewModel @Inject constructor(
     fun deleteCheckedDate(habitCheckedDates: HabitCheckedDates) = viewModelScope.launch {
         repository.deleteHabitCheckedDate(habitCheckedDates)
     }
+
+    fun getDatesOfCurrentWeek() = dateUtils.getCurrentWeekDates()
 }
