@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,11 +25,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.shaiful.mynote.presentation.navigation.RouteNames
 import com.shaiful.mynote.presentation.viewmodels.NoteViewmodel
 import com.shaiful.mynote.presentation.widgets.notes.CategoryCreationDialog
 import com.shaiful.mynote.presentation.widgets.MenuBottomSheet
 import com.shaiful.mynote.presentation.widgets.notes.NoteCategoryListWidget
 import com.shaiful.mynote.presentation.widgets.ThemeToggleButton
+import com.shaiful.mynote.presentation.widgets.ThinIconButton
 import com.shaiful.mynote.presentation.widgets.habit.GoToHabitTrackerButton
 import com.shaiful.mynote.presentation.widgets.notes.UsernameInputDialog
 
@@ -113,7 +116,20 @@ fun HomeScreen(
         Column (
             modifier = Modifier.padding(innerPadding).fillMaxSize()
         ) {
-            GoToHabitTrackerButton(navController = navController)
+//            GoToHabitTrackerButton(navController = navController)
+            ThinIconButton(
+                onClick = {
+                    navController.navigate(RouteNames.habitTrackerScreen)
+                },
+                text = "Habit Tracker",
+                fillMaxWidth = true,
+                icon = {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                        contentDescription = "Forward Icon"
+                    )
+                },
+            )
             Box (
                 modifier = Modifier.weight(1F)
             ) {
