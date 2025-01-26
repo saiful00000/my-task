@@ -1,6 +1,9 @@
 package com.shaiful.mynote.presentation.screens
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -26,6 +29,7 @@ import com.shaiful.mynote.presentation.widgets.notes.CategoryCreationDialog
 import com.shaiful.mynote.presentation.widgets.MenuBottomSheet
 import com.shaiful.mynote.presentation.widgets.notes.NoteCategoryListWidget
 import com.shaiful.mynote.presentation.widgets.ThemeToggleButton
+import com.shaiful.mynote.presentation.widgets.habit.GoToHabitTrackerButton
 import com.shaiful.mynote.presentation.widgets.notes.UsernameInputDialog
 
 
@@ -106,13 +110,22 @@ fun HomeScreen(
             )
         }
 
-        NoteCategoryListWidget(
-            innerPadding = innerPadding,
-            isDarkTheme = isDarkTheme,
-            noteViewModel = noteViewModel,
-            onAddCategoryBtnClick = {
-                showCategoryCreationDialog = true
-            },
-        )
+        Column (
+            modifier = Modifier.padding(innerPadding).fillMaxSize()
+        ) {
+            GoToHabitTrackerButton(navController = navController)
+            Box (
+                modifier = Modifier.weight(1F)
+            ) {
+                NoteCategoryListWidget(
+                    innerPadding = innerPadding,
+                    isDarkTheme = isDarkTheme,
+                    noteViewModel = noteViewModel,
+                    onAddCategoryBtnClick = {
+                        showCategoryCreationDialog = true
+                    },
+                )
+            }
+        }
     }
 }

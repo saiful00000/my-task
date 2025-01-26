@@ -55,7 +55,6 @@ fun NoteCategoryListWidget(
     if (categoryList.isEmpty()) {
         Column(
             modifier = Modifier
-                .padding(innerPadding)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
@@ -73,8 +72,7 @@ fun NoteCategoryListWidget(
 
 
         LazyColumn(
-            modifier = Modifier
-                .padding(innerPadding),
+            modifier = Modifier,
             contentPadding = PaddingValues(bottom = 80.dp)
         ) {
             itemsIndexed(categoryList) { index, category ->
