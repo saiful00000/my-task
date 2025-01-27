@@ -44,13 +44,13 @@ fun MenuBottomSheet(onDismiss: () -> Unit, navController: NavController) {
                 navController.navigate(RouteNames.habitTrackerScreen)
             }
         ),
-        MenuItem(
-            name = "Routine",
-            icon = Icons.Sharp.Recycling,
-            onTap = {
-                onDismiss()
-            }
-        ),
+//        MenuItem(
+//            name = "Routine",
+//            icon = Icons.Sharp.Recycling,
+//            onTap = {
+//                onDismiss()
+//            }
+//        ),
         MenuItem(
             name = "Stopwatch",
             icon = Icons.Sharp.Timer,

@@ -180,7 +180,7 @@ fun NoteCategoryListWidget(
                     }
 
                     if(index == categoryList.size - 1) {
-                        ThinButton(onClick =  onAddCategoryBtnClick, text = "Add New Category")
+                        ThinButton(onClick =  onAddCategoryBtnClick, text = "Add Note Group")
                     }
                 }
             }
