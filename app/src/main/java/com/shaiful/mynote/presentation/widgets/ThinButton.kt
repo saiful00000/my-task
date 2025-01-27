@@ -2,6 +2,7 @@ package com.shaiful.mynote.presentation.widgets
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.shaiful.mynote.presentation.utility_widgets.HorizontalSpace
 
 @Composable
 fun ThinButton(
@@ -51,12 +53,15 @@ fun ThinIconButton(
     fillMaxWidth: Boolean = false,
     icon: @Composable () -> Unit,
     iconCentered: Boolean = false,
+    contentPadding: PaddingValues = ButtonDefaults.ContentPadding
 ) {
 
     val modifier = if (fillMaxWidth) Modifier
         .padding(horizontal = 8.dp, vertical = 0.dp)
         .fillMaxWidth() else Modifier
         .padding(horizontal = 8.dp, vertical = 0.dp)
+
+    val innerModifier = if (fillMaxWidth) Modifier.fillMaxWidth() else Modifier
 
     Button(
         onClick = onClick,
@@ -66,14 +71,16 @@ fun ThinIconButton(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
         ),
-
+        contentPadding = contentPadding,
         ) {
         Row(
-            modifier = modifier,
+//            modifier = modifier,
+            modifier = innerModifier,
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = if (iconCentered) Arrangement.Center else Arrangement.SpaceBetween
         ) {
-            Text(text = text, modifier = Modifier.padding(vertical = 0.dp))
+            Text(text = text)
+            if (iconCentered) HorizontalSpace(width = 4)
             icon()
         }
     }

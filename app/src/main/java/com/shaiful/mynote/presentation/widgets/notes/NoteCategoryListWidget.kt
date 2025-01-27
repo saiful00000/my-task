@@ -63,7 +63,7 @@ fun NoteCategoryListWidget(
             VerticalSpace(height = 24)
             ThinButton(
                 onClick = onAddCategoryBtnClick,
-                text = "Add New Category"
+                text = "Add Note Group"
             )
         }
     } else {

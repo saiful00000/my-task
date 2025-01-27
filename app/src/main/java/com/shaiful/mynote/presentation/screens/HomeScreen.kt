@@ -1,12 +1,17 @@
 package com.shaiful.mynote.presentation.screens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.outlined.EventRepeat
+import androidx.compose.material.icons.sharp.Timer
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -24,8 +29,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shaiful.mynote.presentation.navigation.RouteNames
+import com.shaiful.mynote.presentation.utility_widgets.VerticalSpace
 import com.shaiful.mynote.presentation.viewmodels.NoteViewmodel
 import com.shaiful.mynote.presentation.widgets.notes.CategoryCreationDialog
 import com.shaiful.mynote.presentation.widgets.MenuBottomSheet
@@ -114,22 +121,52 @@ fun HomeScreen(
         }
 
         Column (
-            modifier = Modifier.padding(innerPadding).fillMaxSize()
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
         ) {
-//            GoToHabitTrackerButton(navController = navController)
-            ThinIconButton(
-                onClick = {
-                    navController.navigate(RouteNames.habitTrackerScreen)
-                },
-                text = "Habit Tracker",
-                fillMaxWidth = true,
-                icon = {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                        contentDescription = "Forward Icon"
+            Row (
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.padding(12.dp)
+            ) {
+                Box(modifier = Modifier.weight(1F)) {
+                    ThinIconButton(
+                        fillMaxWidth = true,
+                        iconCentered = true,
+                        onClick = {
+                            navController.navigate(RouteNames.habitTrackerScreen)
+                        },
+                        text = "Habit Tracker",
+                        //                    fillMaxWidth = true,
+                        contentPadding = PaddingValues(horizontal = 8.dp),
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Outlined.EventRepeat,
+                                contentDescription = "Forward Icon"
+                            )
+                        },
                     )
-                },
-            )
+                }
+                Box(modifier = Modifier.weight(1F)) {
+                    ThinIconButton(
+                        fillMaxWidth = true,
+                        iconCentered = true,
+                        onClick = {
+                            navController.navigate(RouteNames.stopwatchScreen)
+                        },
+                        text = "Stop Watch",
+                        //                    fillMaxWidth = true,
+                        contentPadding = PaddingValues(horizontal = 8.dp),
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Sharp.Timer,
+                                contentDescription = "Forward Icon"
+                            )
+                        },
+                    )
+                }
+            }
+            VerticalSpace(height = 24)
             Box (
                 modifier = Modifier.weight(1F)
             ) {
