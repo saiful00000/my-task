@@ -10,8 +10,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.ClearAll
 import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.*
@@ -27,7 +27,7 @@ fun CategoryOptionTile(
     category: Category,
     onAdd: () -> Unit = {},
     onDelete: () -> Unit,
-    onFavorite: () -> Unit
+    onClear: () -> Unit
 ) {
     var isVisible by remember { mutableStateOf(false) }
 
@@ -41,7 +41,10 @@ fun CategoryOptionTile(
     }
 
     Box {
-        Row(horizontalArrangement = Arrangement.End, modifier = Modifier.fillMaxWidth()) {
+        Row(
+            horizontalArrangement = Arrangement.End,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
             IconButton(onClick = { /*TODO*/ }) {
 
             }
@@ -78,13 +81,10 @@ fun CategoryOptionTile(
                     animationSpec = tween(durationMillis = 700)
                 )
             ) {
-                IconButton(onClick = onFavorite) {
-                    Icon(
-                        imageVector = Icons.Outlined.FavoriteBorder,
-                        contentDescription = "Favorite Category",
-                        tint = Orange
-                    )
-                }
+                ClearNoteOptionMenuButton(
+                    onClearOnlyDone = {},
+                    onClearAll = {}
+                )
             }
 
             AnimatedVisibility(

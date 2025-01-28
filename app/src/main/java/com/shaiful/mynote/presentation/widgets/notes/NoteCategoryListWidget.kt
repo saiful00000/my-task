@@ -81,9 +81,14 @@ fun NoteCategoryListWidget(
 
                 var isExpanded by remember { mutableStateOf(expandedState[index]) }
 
-                /// note creation related fields
+                // note creation related fields
                 val sheetState = rememberModalBottomSheetState()
                 var showSheet by remember {
+                    mutableStateOf(false)
+                }
+
+                // clear tasks related fields
+                var showClearOptionMenu by remember {
                     mutableStateOf(false)
                 }
 
@@ -108,6 +113,10 @@ fun NoteCategoryListWidget(
                             showSheet = false
                         }
                     )
+                }
+
+                if (showClearOptionMenu) {
+
                 }
 
                 Column(
@@ -162,7 +171,9 @@ fun NoteCategoryListWidget(
                             onDelete = {
                                 noteViewModel.deleteCategory(category)
                             },
-                            onFavorite = {},
+                            onClear = {
+                                showClearOptionMenu = true
+                            },
                             onAdd = {
                                 showSheet = true
                             },
