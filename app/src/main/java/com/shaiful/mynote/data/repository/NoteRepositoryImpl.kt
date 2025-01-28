@@ -19,4 +19,8 @@ class NoteRepositoryImp @Inject constructor(
 
     override suspend fun update(note: Note) = noteDao.update(note)
 
+    override suspend fun deleteNotesByCategory(categoryId: Int) = noteDao.deleteNotesByCategory(categoryId)
+
+    override suspend fun deleteCompletedNotesByCategory(categoryId: Int) = noteDao.deleteCompletedNotesByCategory(categoryId)
+
 }

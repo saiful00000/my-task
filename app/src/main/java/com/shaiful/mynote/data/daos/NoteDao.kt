@@ -22,4 +22,10 @@ interface NoteDao {
 
     @Update
     suspend fun update(note: Note)
+
+    @Query("DELETE FROM notes WHERE categoryId = :categoryId")
+    suspend fun deleteNotesByCategory(categoryId: Int)
+
+    @Query("DELETE FROM notes WHERE categoryId = :categoryId AND isDone = 1")
+    suspend fun deleteCompletedNotesByCategory(categoryId: Int)
 }

@@ -27,7 +27,7 @@ fun CategoryOptionTile(
     category: Category,
     onAdd: () -> Unit = {},
     onDelete: () -> Unit,
-    onClear: () -> Unit
+    onClear: (String) -> Unit
 ) {
     var isVisible by remember { mutableStateOf(false) }
 
@@ -82,8 +82,12 @@ fun CategoryOptionTile(
                 )
             ) {
                 ClearNoteOptionMenuButton(
-                    onClearOnlyDone = {},
-                    onClearAll = {}
+                    onClearOnlyDone = {
+                        onClear("only_completed")
+                    },
+                    onClearAll = {
+                        onClear("all")
+                    }
                 )
             }
 

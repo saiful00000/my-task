@@ -9,7 +9,6 @@ import com.shaiful.mynote.domain.repositories.NoteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.WhileSubscribed
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,7 +17,7 @@ import javax.inject.Inject
 class NoteViewmodel @Inject constructor(
     private val noteRepository: NoteRepository,
     private val categoryRepository: CategoryRepository
-): ViewModel() {
+) : ViewModel() {
 
 
     val allCategories = categoryRepository.getAllCategories().stateIn(
@@ -60,6 +59,14 @@ class NoteViewmodel @Inject constructor(
 
     fun update(note: Note) = viewModelScope.launch {
         noteRepository.update(note)
+    }
+
+    fun deleteAllNotesByCategory(category: Category) = viewModelScope.launch {
+        noteRepository.deleteNotesByCategory(category.id)
+    }
+
+    fun deleteAllCompletedNotesByCategory(category: Category) = viewModelScope.launch {
+        noteRepository.deleteCompletedNotesByCategory(category.id)
     }
 
 }

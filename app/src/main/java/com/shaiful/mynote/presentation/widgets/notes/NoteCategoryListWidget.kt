@@ -87,11 +87,6 @@ fun NoteCategoryListWidget(
                     mutableStateOf(false)
                 }
 
-                // clear tasks related fields
-                var showClearOptionMenu by remember {
-                    mutableStateOf(false)
-                }
-
                 if (showSheet) {
                     AddNoteBottomSheet(
                         sheetTitle = category.name,
@@ -113,10 +108,6 @@ fun NoteCategoryListWidget(
                             showSheet = false
                         }
                     )
-                }
-
-                if (showClearOptionMenu) {
-
                 }
 
                 Column(
@@ -172,7 +163,14 @@ fun NoteCategoryListWidget(
                                 noteViewModel.deleteCategory(category)
                             },
                             onClear = {
-                                showClearOptionMenu = true
+                                when (it) {
+                                    "all" -> {
+                                        noteViewModel.deleteAllNotesByCategory(category = category)
+                                    }
+                                    "only_completed" -> {
+                                        noteViewModel.deleteAllCompletedNotesByCategory(category = category)
+                                    }
+                                }
                             },
                             onAdd = {
                                 showSheet = true
