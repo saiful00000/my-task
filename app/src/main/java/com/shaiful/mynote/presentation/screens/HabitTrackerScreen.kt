@@ -167,7 +167,14 @@ fun HabitTrackerScreen(
 //                                currentDate.plusDays((offset - 2).toLong()) // Generate -2, -1, 0, +1, +2 days
 //                            }
 
+                            var thisWeekCheckedDatesCount = 0
                             val dates = viewmodel.getDatesOfCurrentWeek()
+
+                            val checkedDates by viewmodel.getCheckedDatesByMonthAndYear(
+                                habit.id,
+                                currentMonth,
+                                currentYear
+                            ).collectAsState()
 
                             dates.forEachIndexed { index, date ->
                                 val dayType =
@@ -176,18 +183,13 @@ fun HabitTrackerScreen(
                                         )
                                     ) DayType.Previous else DayType.Forward
 
-                                val checkedDates by viewmodel.getCheckedDatesByMonthAndYear(
-                                    habit.id,
-                                    currentMonth,
-                                    currentYear
-                                ).collectAsState()
-
                                 var isChecked = false
                                 var currentHabitCheckedDate: HabitCheckedDates? = null
 
                                 checkedDates.forEach {
                                     if (date.format(databaseDateFormater) == it.date) {
                                         isChecked = true
+                                        thisWeekCheckedDatesCount++
                                         currentHabitCheckedDate = it
                                     }
                                 }
