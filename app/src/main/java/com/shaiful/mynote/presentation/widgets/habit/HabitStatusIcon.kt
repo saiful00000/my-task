@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CheckCircleOutline
 import androidx.compose.material.icons.outlined.Cancel
+import androidx.compose.material.icons.outlined.Circle
 import androidx.compose.material.icons.outlined.MoreHoriz
 import androidx.compose.material.icons.outlined.Pending
 import androidx.compose.material3.Icon
@@ -26,7 +27,7 @@ fun HabitStatusIcon(dayType: DayType, isChecked: Boolean) {
     var iconColor: Color
 
     when (dayType) {
-        DayType.Current, DayType.Previous -> {
+        DayType.Previous -> {
             if (isChecked) {
                 imageVector = Icons.Default.Check
                 iconColor = BrightGreen
@@ -35,9 +36,18 @@ fun HabitStatusIcon(dayType: DayType, isChecked: Boolean) {
                 iconColor = Orange
             }
         }
+        DayType.Current -> {
+            if (isChecked) {
+                imageVector = Icons.Default.Check
+                iconColor = BrightGreen
+            } else {
+                imageVector = Icons.Outlined.Circle
+                iconColor = Orange
+            }
+        }
 
         DayType.Forward -> {
-            imageVector = Icons.Outlined.MoreHoriz
+            imageVector = Icons.Outlined.Circle
             iconColor = Color.Gray
         }
     }
