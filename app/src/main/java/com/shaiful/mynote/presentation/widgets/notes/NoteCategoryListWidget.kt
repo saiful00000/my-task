@@ -18,6 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -71,125 +72,135 @@ fun NoteCategoryListWidget(
             remember(categoryList) { mutableStateListOf(*Array(categoryList.size) { false }) }
 
 
-        LazyColumn(
-            modifier = Modifier,
-            contentPadding = PaddingValues(bottom = 80.dp)
-        ) {
-            itemsIndexed(categoryList) { index, category ->
+        Column {
+            Text(
+                text = "Notes",
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(horizontal = 18.dp),
+            )
+            VerticalSpace(height = 8)
 
-                Log.i("Recomposing", "Category item recomposing id -> ${category.id}")
+            LazyColumn(
+                modifier = Modifier,
+                contentPadding = PaddingValues(bottom = 80.dp)
+            ) {
+                itemsIndexed(categoryList) { index, category ->
 
-                var isExpanded by remember { mutableStateOf(expandedState[index]) }
+                    Log.i("Recomposing", "Category item recomposing id -> ${category.id}")
 
-                // note creation related fields
-                val sheetState = rememberModalBottomSheetState()
-                var showSheet by remember {
-                    mutableStateOf(false)
-                }
+                    var isExpanded by remember { mutableStateOf(expandedState[index]) }
 
-                if (showSheet) {
-                    AddNoteBottomSheet(
-                        sheetTitle = category.name,
-                        onSave = { noteItem ->
-                            println("Note item = $noteItem")
-                            noteViewModel.addNote(
-                                Note(
-                                    title = noteItem.title,
-                                    description = noteItem.description,
-                                    categoryId = category.id,
-                                    priority = noteItem.priority,
-                                    isDone = false,
-                                    createdAt = LocalDateTime.now().toString(),
+                    // note creation related fields
+                    val sheetState = rememberModalBottomSheetState()
+                    var showSheet by remember {
+                        mutableStateOf(false)
+                    }
+
+                    if (showSheet) {
+                        AddNoteBottomSheet(
+                            sheetTitle = category.name,
+                            onSave = { noteItem ->
+                                println("Note item = $noteItem")
+                                noteViewModel.addNote(
+                                    Note(
+                                        title = noteItem.title,
+                                        description = noteItem.description,
+                                        categoryId = category.id,
+                                        priority = noteItem.priority,
+                                        isDone = false,
+                                        createdAt = LocalDateTime.now().toString(),
+                                    )
                                 )
-                            )
-                            showSheet = false
-                        },
-                        onDismiss = {
-                            showSheet = false
-                        }
-                    )
-                }
-
-                Column(
-                    modifier = Modifier.padding(horizontal = 8.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    if (index == 0) {
-                        VerticalSpace(height = 10)
-                    }
-
-                    // Animate rotation based on expanded state
-                    val rotationAngle by animateFloatAsState(
-                        targetValue = if (isExpanded) 180f else 0f,
-                        label = "Rotate 180 degrees when expanded" // Rotate 180 degrees when expanded
-                    )
-
-                    Box(
-                        modifier = Modifier
-                            .padding(start = 8.dp)
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(5.dp))
-                            .clickable {
-                                isExpanded = !isExpanded
-                                expandedState[index] = isExpanded
+                                showSheet = false
+                            },
+                            onDismiss = {
+                                showSheet = false
                             }
-                            .padding(top = 8.dp, bottom = 8.dp, start = 8.dp),
+                        )
+                    }
+
+                    Column(
+                        modifier = Modifier.padding(horizontal = 8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Row(
+                        if (index == 0) {
+                            VerticalSpace(height = 10)
+                        }
+
+                        // Animate rotation based on expanded state
+                        val rotationAngle by animateFloatAsState(
+                            targetValue = if (isExpanded) 180f else 0f,
+                            label = "Rotate 180 degrees when expanded" // Rotate 180 degrees when expanded
+                        )
+
+                        Box(
                             modifier = Modifier
-                                .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically,
+                                .padding(start = 8.dp)
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(5.dp))
+                                .clickable {
+                                    isExpanded = !isExpanded
+                                    expandedState[index] = isExpanded
+                                }
+                                .padding(top = 8.dp, bottom = 8.dp, start = 8.dp),
                         ) {
-                            Text(
-                                text = category.name,
-                                style = TextStyle(fontWeight = FontWeight(700)),
-                                modifier = Modifier.weight(1f)
-                            )
-                            Icon(
-                                imageVector = Icons.Default.KeyboardArrowDown,
-                                contentDescription = "Expand",
+                            Row(
                                 modifier = Modifier
-                                    .padding(horizontal = 10.dp)
-                                    .rotate(rotationAngle) // Apply rotation
+                                    .fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Text(
+                                    text = category.name,
+                                    style = TextStyle(fontWeight = FontWeight(700)),
+                                    modifier = Modifier.weight(1f)
+                                )
+                                Icon(
+                                    imageVector = Icons.Default.KeyboardArrowDown,
+                                    contentDescription = "Expand",
+                                    modifier = Modifier
+                                        .padding(horizontal = 10.dp)
+                                        .rotate(rotationAngle) // Apply rotation
+                                )
+                            }
+                        }
+
+                        if (isExpanded) {
+                            CategoryOptionTile(
+                                category = category,
+                                onDelete = {
+                                    noteViewModel.deleteCategory(category)
+                                },
+                                onClear = {
+                                    when (it) {
+                                        "all" -> {
+                                            noteViewModel.deleteAllNotesByCategory(category = category)
+                                        }
+
+                                        "only_completed" -> {
+                                            noteViewModel.deleteAllCompletedNotesByCategory(category = category)
+                                        }
+                                    }
+                                },
+                                onAdd = {
+                                    showSheet = true
+                                },
                             )
                         }
-                    }
+                        if (!isExpanded) {
+                            VerticalSpace(height = 24)
+                        }
+                        if (isExpanded) {
+                            NoteListWidget(
+                                isDarkTheme = isDarkTheme,
+                                noteViewmodel = noteViewModel,
+                                category = category,
+                            )
+                        }
 
-                    if (isExpanded) {
-                        CategoryOptionTile(
-                            category = category,
-                            onDelete = {
-                                noteViewModel.deleteCategory(category)
-                            },
-                            onClear = {
-                                when (it) {
-                                    "all" -> {
-                                        noteViewModel.deleteAllNotesByCategory(category = category)
-                                    }
-                                    "only_completed" -> {
-                                        noteViewModel.deleteAllCompletedNotesByCategory(category = category)
-                                    }
-                                }
-                            },
-                            onAdd = {
-                                showSheet = true
-                            },
-                        )
-                    }
-                    if (!isExpanded) {
-                        VerticalSpace(height = 24)
-                    }
-                    if (isExpanded) {
-                        NoteListWidget(
-                            isDarkTheme = isDarkTheme,
-                            noteViewmodel = noteViewModel,
-                            category = category,
-                        )
-                    }
-
-                    if(index == categoryList.size - 1) {
-                        ThinButton(onClick =  onAddCategoryBtnClick, text = "Add Note Group")
+                        if (index == categoryList.size - 1) {
+                            ThinButton(onClick = onAddCategoryBtnClick, text = "Add Note Group")
+                        }
                     }
                 }
             }
