@@ -34,6 +34,7 @@ import androidx.navigation.NavController
 import com.shaiful.mynote.data.tables.Habit
 import com.shaiful.mynote.data.tables.HabitCheckedDates
 import com.shaiful.mynote.domain.DayType
+import com.shaiful.mynote.presentation.navigation.RouteNames
 import com.shaiful.mynote.presentation.utility_widgets.VerticalSpace
 import com.shaiful.mynote.presentation.viewmodels.HabitTrackerViewModel
 import com.shaiful.mynote.presentation.widgets.AppBar
@@ -138,7 +139,7 @@ fun HabitTrackerScreen(
                                 )
                                 HabitOptionMenuButton(
                                     onDetails = {
-
+                                        navController.navigate(RouteNames.habitDetailsScreen + "/${habit.id}")
                                     },
                                     onDelete = {
                                         showDeleteConfirmationDialog = true
