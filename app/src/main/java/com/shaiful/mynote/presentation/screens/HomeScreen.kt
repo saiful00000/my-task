@@ -35,6 +35,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.shaiful.mynote.presentation.navigation.RouteNames
+import com.shaiful.mynote.presentation.utility_widgets.HorizontalSpace
 import com.shaiful.mynote.presentation.utility_widgets.VerticalSpace
 import com.shaiful.mynote.presentation.viewmodels.NoteViewmodel
 import com.shaiful.mynote.presentation.widgets.notes.CategoryCreationDialog
@@ -151,6 +152,7 @@ fun HomeScreen(
                         },
                     )
                 }
+                HorizontalSpace(width = 8)
                 Box(modifier = Modifier.weight(1F)) {
                     ThinIconButton(
                         fillMaxWidth = true,

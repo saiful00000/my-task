@@ -24,7 +24,6 @@ fun ThinButton(
     onClick: () -> Unit,
     text: String,
     fillMaxWidth: Boolean = false,
-    icon: (@Composable () -> Unit)? = null,
 ) {
 
     val modifier = if (fillMaxWidth) Modifier
@@ -57,9 +56,9 @@ fun ThinIconButton(
 ) {
 
     val modifier = if (fillMaxWidth) Modifier
-        .padding(horizontal = 8.dp, vertical = 0.dp)
+        .padding(horizontal = 0.dp, vertical = 0.dp)
         .fillMaxWidth() else Modifier
-        .padding(horizontal = 8.dp, vertical = 0.dp)
+        .padding(horizontal = 0.dp, vertical = 0.dp)
 
     val innerModifier = if (fillMaxWidth) Modifier.fillMaxWidth() else Modifier
 

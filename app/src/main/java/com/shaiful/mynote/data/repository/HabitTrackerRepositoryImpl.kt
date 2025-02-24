@@ -16,6 +16,7 @@ class HabitTrackerRepositoryImpl @Inject constructor(
     private val habitCheckedDateDao: HabitCheckedDateDao
 ) : HabitTrackerRepository {
     override suspend fun insertHabit(habit: Habit) = habitDao.insertHabit(habit)
+    override suspend fun getHabitById(habitId: Int) = habitDao.getHabitById(habitId)
 
     override suspend fun updateHabit(habit: Habit) = habitDao.updateHabit(habit)
 

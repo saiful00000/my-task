@@ -1,6 +1,5 @@
 package com.shaiful.mynote.presentation.widgets
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -16,33 +15,23 @@ import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Timeline
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
-import androidx.compose.material3.DatePicker
-import androidx.compose.material3.DatePickerDialog
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.shaiful.mynote.domain.DayType
 import com.shaiful.mynote.presentation.utility_widgets.HorizontalSpace
 import com.shaiful.mynote.presentation.utility_widgets.VerticalSpace
 import java.time.LocalDate
@@ -82,7 +71,7 @@ fun DatePickerButton(
     }
 
     var selectedMonth by remember {
-        mutableStateOf(now.monthValue - 1)
+        mutableStateOf(now.monthValue-1)
     }
 
     var selectedYear by remember {
@@ -107,7 +96,7 @@ fun DatePickerButton(
                     onClick = {
                         showMonthPicker = false
                         selectedYear = now.year
-                        selectedMonth = now.monthValue - 1;
+                        selectedMonth = now.monthValue;
                     }
                 ) {
                     Text(text = "Cancel")
@@ -138,7 +127,7 @@ fun DatePickerButton(
 
                             val isSelected = index == selectedMonth
 
-                            Box (
+                            Box(
                                 modifier = Modifier
                                     .padding(4.dp)
                                     .border(
@@ -149,7 +138,11 @@ fun DatePickerButton(
                                     .clickable {
                                         selectedMonth = index
                                     }
-                                    .background(color = MaterialTheme.colorScheme.onPrimary.copy(alpha = .4F))
+                                    .background(
+                                        color = MaterialTheme.colorScheme.onPrimary.copy(
+                                            alpha = .4F
+                                        )
+                                    )
 
                             ) {
                                 Text(
@@ -170,20 +163,19 @@ fun DatePickerButton(
         )
     }
 
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .border(
-                width = 1.dp,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
-                shape = RoundedCornerShape(5.dp)
+    ThinIconButton(
+        onClick = {
+            showMonthPicker = true
+        },
+        text = "${months[selectedMonth]}, $selectedYear",
+        fillMaxWidth = true,
+        iconCentered = true,
+        icon = {
+            Icon(
+                imageVector = Icons.Default.Timeline,
+                contentDescription = "Timeline Icon in time picker button"
             )
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-            .clickable {
-                showMonthPicker = true
-            }
-    ) {
-        Text(text = "Pick Date")
-    }
+        }
+    )
 
 }

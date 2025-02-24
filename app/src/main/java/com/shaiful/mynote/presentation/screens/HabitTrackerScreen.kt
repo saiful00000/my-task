@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -44,8 +43,6 @@ import com.shaiful.mynote.presentation.widgets.ThinButton
 import com.shaiful.mynote.presentation.widgets.habit.HabitCreationDialog
 import com.shaiful.mynote.presentation.widgets.habit.HabitStatusIcon
 import com.shaiful.mynote.presentation.widgets.notes.HabitOptionMenuButton
-import com.shaiful.mynote.ui.theme.BrightGreen
-import com.shaiful.mynote.ui.theme.Purple40
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale

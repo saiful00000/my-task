@@ -5,4 +5,5 @@ object RouteNames {
     val stopwatchScreen = "stopwatch_screen"
     val habitTrackerScreen = "habit_tracker_screen"
     val habitDetailsScreen = "habit_details_screen"
+    val startingDestination = habitTrackerScreen;
 }

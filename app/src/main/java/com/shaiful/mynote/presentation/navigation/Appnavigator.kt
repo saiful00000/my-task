@@ -13,7 +13,7 @@ import com.shaiful.mynote.presentation.screens.StopwatchScreen
 fun AppNavigator(onThemeChange: (Boolean) -> Unit, isDarkTheme: Boolean) {
     val navHostController = rememberNavController()
 
-    NavHost(navController = navHostController, startDestination = RouteNames.homeScreen) {
+    NavHost(navController = navHostController, startDestination = RouteNames.startingDestination) {
         composable(RouteNames.homeScreen) {
             HomeScreen(navController = navHostController, onThemeChange = onThemeChange, isDarkTheme = isDarkTheme)
         }
