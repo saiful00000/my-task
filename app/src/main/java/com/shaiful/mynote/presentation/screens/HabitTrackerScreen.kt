@@ -197,6 +197,11 @@ fun HabitTrackerScreen(
 
                                 Card(
                                     elevation = CardDefaults.cardElevation(1.dp),
+                                    shape = RoundedCornerShape(5.dp),
+                                    border = if (dayType == DayType.Current) BorderStroke(1.dp, color = MaterialTheme.colorScheme.primary) else null,
+                                    modifier = Modifier
+                                        .weight(1F)
+                                        .padding(4.dp),
                                     onClick = {
                                         if (dayType == DayType.Current || dayType == DayType.Previous) {
                                             when (isChecked) {
@@ -221,12 +226,6 @@ fun HabitTrackerScreen(
                                             }
                                         }
                                     },
-                                    shape = RoundedCornerShape(5.dp),
-                                    border = if (dayType == DayType.Current) BorderStroke(1.dp, color = MaterialTheme.colorScheme.primary) else null,
-                                    modifier = Modifier
-                                        .weight(1F)
-                                        .padding(4.dp),
-
                                     ) {
                                     Box(
                                         modifier = Modifier
