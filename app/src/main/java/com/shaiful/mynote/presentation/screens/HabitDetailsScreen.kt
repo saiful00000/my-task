@@ -68,11 +68,6 @@ fun HabitDetailsScreen(
                 onMonthPicked = { year, month ->
                     selectedYear = year
                     selectedMonth = month
-//                    viewmodel.getCheckedDatesByMonthAndYear(
-//                        habitId = habitId,
-//                        month = month,
-//                        year = year
-//                    )
                 }
             )
             VerticalSpace(height = 24)
