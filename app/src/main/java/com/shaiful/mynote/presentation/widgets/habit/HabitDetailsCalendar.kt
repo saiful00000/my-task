@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shaiful.mynote.data.tables.HabitCheckedDates
 import com.shaiful.mynote.presentation.models.HabitCheckedDateWrapper
+import com.shaiful.mynote.presentation.utility_widgets.VerticalSpace
 import java.time.LocalDate
 
 @Composable
@@ -54,6 +55,11 @@ fun HabitDetailsCalendar(year: Int, month: Int, checkedDates: List<HabitCheckedD
 
 
     Column {
+
+        VerticalSpace(height = 16)
+        HabitDetailsCheckedProgress(daysInMonth = daysInMonth, daysChecked = checkedDays.size)
+        VerticalSpace(height = 16)
+
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
