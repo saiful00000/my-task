@@ -15,7 +15,9 @@ interface HabitTrackerRepository {
 
     fun getCheckedDatesForHabit(habitId: Int): Flow<List<HabitCheckedDates>>
 
-    fun getCheckedDatesByMonthAndYear(habitId: Int, month: Int, year: Int): Flow<List<HabitCheckedDates>>
+    fun getCheckedDatesByMonthAndYearAsFlow(habitId: Int, month: Int, year: Int): Flow<List<HabitCheckedDates>>
+
+    suspend fun getCheckedDatesByMonthAndYear(habitId: Int, month: Int, year: Int): List<HabitCheckedDates>
 
     suspend fun deleteHabitCheckedDate(habitCheckedDates: HabitCheckedDates)
 }

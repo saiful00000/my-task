@@ -1,5 +1,6 @@
 package com.shaiful.mynote.presentation.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shaiful.mynote.data.tables.Habit
@@ -29,15 +30,12 @@ class HabitDetailsViewModel @Inject constructor(
         }
     }
 
-    private val checkedDatesCacheByMonth = mutableMapOf<Int, StateFlow<List<HabitCheckedDates>>>()
+    private val _habitCheckedDates = MutableStateFlow<List<HabitCheckedDates>>(mutableListOf())
+    val habitCheckedDates: StateFlow<List<HabitCheckedDates>> = _habitCheckedDates
 
-    fun getCheckedDatesByMonthAndYear(habitId: Int, month: Int, year: Int): StateFlow<List<HabitCheckedDates>> {
-        return checkedDatesCacheByMonth.getOrPut(habitId) {
-            repository.getCheckedDatesByMonthAndYear(habitId = habitId, month = month, year = year).stateIn(
-                viewModelScope,
-                SharingStarted.WhileSubscribed(5000),
-                emptyList()
-            )
+    fun getCheckedDatesByMonthAndYear(habitId: Int, month: Int, year: Int) {
+        viewModelScope.launch {
+            _habitCheckedDates.value = repository.getCheckedDatesByMonthAndYear(year = year, month = month, habitId = habitId)
         }
     }
 

@@ -168,7 +168,7 @@ fun HabitTrackerScreen(
                             var thisWeekCheckedDatesCount = 0
                             val dates = viewmodel.getDatesOfCurrentWeek()
 
-                            val checkedDates by viewmodel.getCheckedDatesByMonthAndYear(
+                            val checkedDates by viewmodel.getCheckedDatesByMonthAndYearAsFlow(
                                 habit.id,
                                 currentMonth,
                                 currentYear

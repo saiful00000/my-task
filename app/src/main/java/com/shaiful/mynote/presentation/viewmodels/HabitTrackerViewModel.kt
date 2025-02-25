@@ -9,7 +9,6 @@ import com.shaiful.mynote.utils.DateUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.WhileSubscribed
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -52,9 +51,9 @@ class HabitTrackerViewModel @Inject constructor(
 
     private val checkedDatesCacheByMonth = mutableMapOf<Int, StateFlow<List<HabitCheckedDates>>>()
 
-    fun getCheckedDatesByMonthAndYear(habitId: Int, month: Int, year: Int): StateFlow<List<HabitCheckedDates>> {
+    fun getCheckedDatesByMonthAndYearAsFlow(habitId: Int, month: Int, year: Int): StateFlow<List<HabitCheckedDates>> {
         return checkedDatesCacheByMonth.getOrPut(habitId) {
-            repository.getCheckedDatesByMonthAndYear(habitId = habitId, month = month, year = year).stateIn(
+            repository.getCheckedDatesByMonthAndYearAsFlow(habitId = habitId, month = month, year = year).stateIn(
                 viewModelScope,
                 SharingStarted.WhileSubscribed(5000),
                 emptyList()

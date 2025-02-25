@@ -18,7 +18,10 @@ interface HabitCheckedDateDao {
     fun getCheckedDatesForHabit(habitId: Int): Flow<List<HabitCheckedDates>>
 
     @Query("SELECT * FROM habit_checked_dates WHERE habitId = :habitId AND month = :month AND year = :year")
-    fun getCheckedDatesByMonthAndYear(habitId: Int, month: Int, year: Int): Flow<List<HabitCheckedDates>>
+    fun getCheckedDatesByMonthAndYearAsFlow(habitId: Int, month: Int, year: Int): Flow<List<HabitCheckedDates>>
+
+    @Query("SELECT * FROM habit_checked_dates WHERE habitId = :habitId AND month = :month AND year = :year")
+    suspend fun getCheckedDatesByMonthAndYear(habitId: Int, month: Int, year: Int): List<HabitCheckedDates>
 
     @Delete
     suspend fun deleteCheckedDate(habitCheckedDates: HabitCheckedDates)
