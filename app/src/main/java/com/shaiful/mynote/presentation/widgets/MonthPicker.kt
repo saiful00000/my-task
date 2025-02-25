@@ -15,9 +15,12 @@ import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Timeline
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -62,16 +65,12 @@ fun DatePickerButton(
         mutableStateOf(false)
     }
 
-    var monthMenuExpanded by remember {
-        mutableStateOf(false)
-    }
-
     var yearMenuExpanded by remember {
         mutableStateOf(false)
     }
 
     var selectedMonth by remember {
-        mutableStateOf(now.monthValue-1)
+        mutableStateOf(now.monthValue - 1)
     }
 
     var selectedYear by remember {
@@ -84,40 +83,81 @@ fun DatePickerButton(
                 showMonthPicker = false
             },
             confirmButton = {
-                Button(onClick = {
-                    showMonthPicker = false
-                    onMonthPicked(selectedYear, selectedMonth)
-                }) {
-                    Text(text = "Ok")
-                }
+                ThinButton(
+                    text = "Ok",
+                    onClick = {
+                        showMonthPicker = false
+                        onMonthPicked(selectedYear, selectedMonth)
+                    },
+                )
             },
             dismissButton = {
-                Button(
+                ThinButton(
+                    text = "Cancel",
                     onClick = {
                         showMonthPicker = false
                         selectedYear = now.year
-                        selectedMonth = now.monthValue;
+                        selectedMonth = now.monthValue - 1
                     }
-                ) {
-                    Text(text = "Cancel")
-                }
+                )
             },
             title = {
                 Text(text = "Select year and month")
             },
             text = {
                 Column {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                    Box(
+                        modifier = Modifier
+                            .clickable {
+                                yearMenuExpanded = true
+                            }
+                            .padding(start = 8.dp, top = 8.dp, bottom = 8.dp)
                     ) {
-                        Text(text = selectedYear.toString())
-                        HorizontalSpace(width = 8)
-                        Icon(
-                            imageVector = Icons.Default.ArrowDropDown,
-                            contentDescription = "Year arrow down",
-                        )
+                        DropdownMenu(
+                            modifier = Modifier.fillMaxWidth(),
+                            expanded = yearMenuExpanded,
+                            onDismissRequest = {
+                                yearMenuExpanded = false
+                            }
+                        ) {
+                            years.forEach { y ->
+                                DropdownMenuItem(
+                                    text = {
+                                        Text(
+                                            text = y.toString(),
+                                        )
+                                    },
+                                    onClick = {
+                                        selectedYear = y
+                                        yearMenuExpanded = false
+                                    },
+                                )
+                            }
+                        }
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.CalendarMonth,
+                                contentDescription = "Year dropdown calender icon",
+                            )
+                            HorizontalSpace(width = 8)
+                            Text(
+                                text = selectedYear.toString(),
+                                style = TextStyle(
+                                    fontWeight = FontWeight.Bold,
+                                )
+                            )
+                            HorizontalSpace(width = 8)
+                            Icon(
+                                imageVector = Icons.Default.ArrowDropDown,
+                                contentDescription = "Year arrow down",
+                            )
+                        }
                     }
+
                     VerticalSpace(height = 16)
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),
