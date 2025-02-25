@@ -1,4 +1,5 @@
 package com.shaiful.mynote.presentation.screens
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -16,6 +17,7 @@ import com.shaiful.mynote.presentation.utility_widgets.VerticalSpace
 import com.shaiful.mynote.presentation.viewmodels.HabitDetailsViewModel
 import com.shaiful.mynote.presentation.widgets.AppBar
 import com.shaiful.mynote.presentation.widgets.DatePickerButton
+import com.shaiful.mynote.presentation.widgets.habit.HabitDetailsCalender
 import java.time.LocalDate
 
 @Composable
@@ -24,17 +26,24 @@ fun HabitDetailsScreen(
     habitId: Int,
     viewmodel: HabitDetailsViewModel = hiltViewModel(),
 ) {
+    val now = LocalDate.now()
 
     val habit by viewmodel.habit.collectAsState()
 
+    // Call necessary functions
     viewmodel.getHabit(habitId)
+    val checkedDates by viewmodel.getCheckedDatesByMonthAndYear(
+        habitId = habitId,
+        month = now.month.value,
+        year = now.year
+    ).collectAsState()
 
-    Scaffold (
+    Scaffold(
         topBar = {
             AppBar(title = "Habit Details", navController = navController)
         }
     ) { innerPadding ->
-        Column (
+        Column(
             modifier = Modifier
                 .padding(innerPadding)
                 .padding(horizontal = 16.dp)
@@ -48,10 +57,12 @@ fun HabitDetailsScreen(
             )
             VerticalSpace(16)
             DatePickerButton(
-                onMonthPicked = {year, month ->
+                onMonthPicked = { year, month ->
 
                 }
             )
+            VerticalSpace(height = 16)
+            HabitDetailsCalender(year = 2025, month = 2, checkedDates = checkedDates)
         }
     }
 }
