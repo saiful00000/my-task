@@ -25,19 +25,26 @@ fun HabitDetailsCheckedProgress(daysInMonth: Int, daysChecked: Int) {
             Text(
                 text = "$daysChecked/$daysInMonth",
                 style = TextStyle(
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Medium,
+                )
+            )
+            Text(
+                text = "commitment",
+                style = TextStyle(
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Thin,
                 )
             )
             Text(
                 text = "${"%.2f".format(percentage)}%",
                 style = TextStyle(
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Medium,
                 )
             )
         }
-        VerticalSpace(height = 4)
+        VerticalSpace(height = 8)
         LinearProgressIndicator(
             modifier = Modifier.fillMaxWidth(),
             progress = { percentage / 100 }

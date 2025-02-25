@@ -55,10 +55,8 @@ fun HabitDetailsCalendar(year: Int, month: Int, checkedDates: List<HabitCheckedD
 
 
     Column {
-
-        VerticalSpace(height = 16)
         HabitDetailsCheckedProgress(daysInMonth = daysInMonth, daysChecked = checkedDays.size)
-        VerticalSpace(height = 16)
+        VerticalSpace(height = 24)
 
         Row(
             modifier = Modifier
@@ -73,7 +71,6 @@ fun HabitDetailsCalendar(year: Int, month: Int, checkedDates: List<HabitCheckedD
                     Text(
                         text = it,
                         textAlign = TextAlign.Center,
-//                        fontWeight = FontWeight.SemiBold,
                         fontSize = 14.sp,
                     )
                 }
@@ -96,9 +93,7 @@ fun HabitDetailsCalendar(year: Int, month: Int, checkedDates: List<HabitCheckedD
                     data.localDate?.let {
                         Text(
                             text = it.dayOfMonth.toString(),
-                            style = TextStyle(
-                                fontWeight = FontWeight.Light
-                            )
+
                         )
                     }
                 }
