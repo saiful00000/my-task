@@ -36,7 +36,7 @@ fun HabitDetailsScreen(
     }
 
     var selectedMonth by remember {
-        mutableStateOf(now.month.value - 1)
+        mutableStateOf(now.month.value)
     }
 
     val habit by viewmodel.habit.collectAsState()
@@ -44,7 +44,7 @@ fun HabitDetailsScreen(
 
     // Call necessary functions
     viewmodel.getHabit(habitId)
-    viewmodel.getCheckedDatesByMonthAndYear(habitId = habitId, month = selectedMonth + 1, year = selectedYear)
+    viewmodel.getCheckedDatesByMonthAndYear(habitId = habitId, month = selectedMonth, year = selectedYear)
 
     Scaffold(
         topBar = {

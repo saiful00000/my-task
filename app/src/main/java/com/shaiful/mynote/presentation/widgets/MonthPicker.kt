@@ -87,7 +87,7 @@ fun DatePickerButton(
                     text = "Ok",
                     onClick = {
                         showMonthPicker = false
-                        onMonthPicked(selectedYear, selectedMonth)
+                        onMonthPicked(selectedYear, selectedMonth + 1) // +1 because here month start from 0 but returning as month start from 1
                     },
                 )
             },

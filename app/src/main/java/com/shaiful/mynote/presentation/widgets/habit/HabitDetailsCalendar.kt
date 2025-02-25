@@ -30,7 +30,7 @@ import java.time.LocalDate
 @Composable
 fun HabitDetailsCalendar(year: Int, month: Int, checkedDates: List<HabitCheckedDates>) {
     val weekDaysStrs = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
-    val firstDayOfMonth = LocalDate.of(year, month + 1, 1)
+    val firstDayOfMonth = LocalDate.of(year, month, 1)
     val daysInMonth = firstDayOfMonth.lengthOfMonth()
     val firstDayOfWeek = firstDayOfMonth.dayOfWeek.value // 1 = Monday --- 7 = Sunday
 
@@ -44,7 +44,7 @@ fun HabitDetailsCalendar(year: Int, month: Int, checkedDates: List<HabitCheckedD
     // Add actual days of the month
     for (day in 1..daysInMonth) {
         daysList.add(
-            HabitCheckedDateWrapper(LocalDate.of(year, month + 1, day), checkedDays.contains(day))
+            HabitCheckedDateWrapper(LocalDate.of(year, month, day), checkedDays.contains(day))
         )
     }
     // Fill remaining empty spaces to complete the last row
